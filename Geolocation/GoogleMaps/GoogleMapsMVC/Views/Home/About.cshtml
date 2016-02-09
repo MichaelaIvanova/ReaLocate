@@ -1,0 +1,79 @@
+﻿@model GoogleMapsMVC.Controllers.Coordinate
+
+@{
+    ViewBag.Title = "About";
+}
+
+
+<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+
+<!-- This css is to ensure that the google map contols (zoom bar etc) show and size correctly. -->
+<style>
+    #map_canvas img {
+        max-width: none;
+    }
+</style>
+
+<!-- This css is to give a nice big popup "info window" when a marker is clicked on the map -->
+<style>
+    .infoDiv {
+        height: 200px;
+        width: 300px;
+        -webkit-user-select: none;
+        background-color: white;
+    }
+</style>
+
+<div id="cur-address">@Model.Address</div>
+
+<!-- This is the div that will contain the Google Map -->
+<div id="map_canvas" style="height: 300px; width: 300px; border-radius: 200px;"></div>
+
+<!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
+@section scripts {
+    <section class="scripts">
+
+        <script type="text/javascript">
+
+    <!-- This code tells the browser to execute the "Initialize" method only when the complete document model has been loaded. -->
+    $(document).ready(function () {
+        Initialize();
+    });
+
+    // Where all the fun happens
+    function Initialize() {
+
+        // Google has tweaked their interface somewhat - this tells the api to use that new UI
+        google.maps.visualRefresh = true;
+        var Liverpool = new google.maps.LatLng(@Model.Lat, @Model.Long);
+
+        // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
+        var mapOptions = {
+            zoom: 15,
+            center: Liverpool,
+            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        };
+
+        // This makes the div with id "map_canvas" a google map
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+        // This shows adding a simple pin "marker" - this happens to be the Tate Gallery in Liverpool!
+        var myLatlng = new google.maps.LatLng(@Model.Lat, @Model.Long);
+        var c = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.Address))';
+        console.log(c);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.Address))'
+        });
+
+        // You can make markers different colors...  google it up!
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+    }
+
+
+        </script>
+    </section>
+}
