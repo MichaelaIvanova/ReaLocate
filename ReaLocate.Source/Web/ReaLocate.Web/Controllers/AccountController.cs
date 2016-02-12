@@ -181,18 +181,23 @@
                     LastName = model.LastName
                 };
 
-                string id = user.Id;
-                string directory = Server.MapPath("~/UploadedFiles/ProfileImages/") + id;
-                if (!Directory.Exists(directory))
+                if (upload != null && upload.ContentLength > 0 && upload.ContentType == "image/jpeg")
                 {
-                    Directory.CreateDirectory(directory);
-                }
-                string filename = Guid.NewGuid().ToString() + ".jpg";
-                string path = directory + "/" + filename;
-                string url = "~/UploadedFiles/ProfileImages/" + id + "/" + filename;
+                    string id = user.Id;
+                    string directory = this.Server.MapPath("~/UploadedFiles/ProfileImages/") + id;
 
-                upload.SaveAs(path);
-                user.ProfilePicturePath = path;
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    string filename = Guid.NewGuid().ToString() + ".jpg";
+                    string path = directory + "/" + filename;
+                    string url = "~/UploadedFiles/ProfileImages/" + id + "/" + filename;
+
+                    upload.SaveAs(path);
+                    user.ProfilePicturePath = path;
+                }
 
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
