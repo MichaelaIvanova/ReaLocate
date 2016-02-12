@@ -14,6 +14,5 @@
         public int VatNumber { get; set; }
 
         public PaymentType PaymentType { get; set; }
-
     }
 }

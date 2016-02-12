@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 <h2>@ViewBag.Title.</h2>
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
@@ -53,6 +53,12 @@
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Avatar", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="Avatar" name="upload" />
         </div>
     </div>
     <div class="form-group">

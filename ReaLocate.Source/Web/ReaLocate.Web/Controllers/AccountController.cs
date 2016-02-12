@@ -11,7 +11,8 @@
 
     using ReaLocate.Data.Models;
     using ReaLocate.Web.ViewModels.Account;
-
+    using System;
+    using System.IO;
     [Authorize]
     public class AccountController : BaseController
     {
@@ -166,10 +167,11 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase upload)
         {
             if (this.ModelState.IsValid)
             {
+
                 var user = new User
                 {
                     UserName = model.UserName,
@@ -179,10 +181,24 @@
                     LastName = model.LastName
                 };
 
+                string id = user.Id;
+                string directory = Server.MapPath("~/UploadedFiles/ProfileImages/") + id;
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                string filename = Guid.NewGuid().ToString() + ".jpg";
+                string path = directory + "/" + filename;
+                string url = "~/UploadedFiles/ProfileImages/" + id + "/" + filename;
+
+                upload.SaveAs(path);
+                user.ProfilePicturePath = path;
+
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
