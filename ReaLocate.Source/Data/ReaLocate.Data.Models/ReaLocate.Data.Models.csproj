@@ -64,6 +64,7 @@
     <Compile Include="Invoice.cs" />
     <Compile Include="PaymentDetails.cs" />
     <Compile Include="PaymentType.cs" />
+    <Compile Include="Photo.cs" />
     <Compile Include="RealEstate.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

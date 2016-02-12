@@ -4,11 +4,19 @@
     using System.Web.Mvc;
 
     using Infrastructure.Mapping;
-
+    using ViewModels;
     public class HomeController : BaseController
     {
 
         public ActionResult Index()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(RealEstateViewModel realEstate)
         {
             return this.View();
         }
