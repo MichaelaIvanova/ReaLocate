@@ -6,6 +6,7 @@
 
     public class RealEstateViewModel : IMapFrom<RealEstate>, IMapTo<RealEstate> // IHaveCustomMappings
     {
+
         public string Address { get; set; }
 
         public string Title { get; set; }

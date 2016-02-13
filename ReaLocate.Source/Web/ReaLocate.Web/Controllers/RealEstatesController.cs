@@ -24,12 +24,14 @@
         [HttpGet]
         public ActionResult CreateRealEstate()
         {
+            this.ViewBag.MaxPhotos = 3;
+
             return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateRealEstate(RealEstateViewModel realEstate, HttpPostedFileBase upload)
+        public ActionResult CreateRealEstate(RealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
         {
             // TODO get user and see if he has agency
             var userId = this.User.Identity.GetUserId();
@@ -40,7 +42,7 @@
             var idCreatedRealEstate = dbRealEstate.Id;
             var encodedId = this.realEstatesService.EncodeId(idCreatedRealEstate);
 
-            return this.RedirectToAction("RealEstateDetails","RealEstates", new { id = encodedId });
+            return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = encodedId });
         }
 
         public ActionResult RealEstateDetails(string id)
