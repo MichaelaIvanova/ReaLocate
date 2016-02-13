@@ -1,24 +1,22 @@
 ﻿namespace ReaLocate.Data.Models
 {
-
+    using Common.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
-    public class RealEstate
+    public class RealEstate : BaseModel<int>
     {
         private ICollection<Photo> photos;
-        private readonly DateTime createdOn;
+        private ICollection<Amentity> amentities;
 
         public RealEstate()
         {
             this.photos = new HashSet<Photo>();
-            this.createdOn = DateTime.UtcNow;
+            this.amentities = new HashSet<Amentity>();
         }
-
-        public int Id { get; set; }
 
         public string Title { get; set; }
 
@@ -27,7 +25,6 @@
         public decimal? Price { get; set; }
 
         // TODO: prop Expires On?
-        public DateTime DatePublished { get { return this.createdOn; } }
 
         public string PublisherId { get; set; } //user id is guid
 
@@ -37,9 +34,16 @@
 
         public virtual Agency Agency { get; set; }
 
+        public int? VisitorsDetails { get; set; }
+
+        public VisitorsDetails VisitorsDetail { get; set; }
+
         //to show it on google maps
         public string Address { get; set; }
 
         public virtual ICollection<Photo> Photos { get { return this.photos; } set { this.photos = value; } }
+
+        public virtual ICollection<Amentity> Amentities { get { return this.amentities; } set { this.amentities = value; } }
+
     }
 }

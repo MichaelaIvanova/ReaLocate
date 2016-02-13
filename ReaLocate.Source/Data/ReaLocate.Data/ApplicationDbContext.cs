@@ -17,7 +17,19 @@
         {
         }
 
+        public IDbSet<RealEstate> RealEstates { get; set; }
+
+        public IDbSet<Agency> Agencies { get; set; }
+
+        public IDbSet<Invoice> Invoices { get; set; }
+
+        public IDbSet<PaymentDetails> PaymentDetails { get; set; }
+
+        public IDbSet<VisitorsDetails> VisitorsDetails { get; set; }
+
         public IDbSet<Photo> Photos { get; set; }
+
+        public IDbSet<Amentity> Amentities { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -42,11 +54,11 @@
                 var entity = (IAuditInfo)entry.Entity;
                 if (entry.State == EntityState.Added && entity.CreatedOn == default(DateTime))
                 {
-                    entity.CreatedOn = DateTime.Now;
+                    entity.CreatedOn = DateTime.UtcNow;
                 }
                 else
                 {
-                    entity.ModifiedOn = DateTime.Now;
+                    entity.ModifiedOn = DateTime.UtcNow;
                 }
             }
         }

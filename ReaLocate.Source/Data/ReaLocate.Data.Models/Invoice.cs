@@ -1,16 +1,14 @@
 ﻿namespace ReaLocate.Data.Models
 {
-
+    using Common.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Invoice
+    public class Invoice : BaseModel<int>
     {
-        public int Id { get; set; }
-
         public string UserRecepientId { get; set; }
 
         // as ordinary User, can be null

@@ -1,13 +1,13 @@
 ﻿namespace ReaLocate.Data.Models
 {
-
+    using Common.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Agency
+    public class Agency : BaseModel<int>
     {
         private ICollection<RealEstate> realEstates;
         private ICollection<User> brokers;
@@ -19,8 +19,6 @@
             this.brokers = new HashSet<User>();
             this.invoices = new HashSet<Invoice>();
         }
-
-        public int Id { get; set; }
 
         public string Name { get; set; }
 

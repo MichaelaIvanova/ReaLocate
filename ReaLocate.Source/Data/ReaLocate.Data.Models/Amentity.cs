@@ -1,4 +1,4 @@
-namespace ReaLocate.Data.Models
+﻿namespace ReaLocate.Data.Models
 {
     using Common.Models;
     using System;
@@ -7,12 +7,12 @@ namespace ReaLocate.Data.Models
     using System.Text;
     using System.Threading.Tasks;
 
-    public class Photo : BaseModel<int>
+    public class Amentity : BaseModel<int>
     {
         public int? RealEstateId { get; set; }
 
         public RealEstate RealEstate { get; set; }
 
-        public string SourceUrl { get; set; }
+        public string AmentityValue { get; set; }
     }
 }
