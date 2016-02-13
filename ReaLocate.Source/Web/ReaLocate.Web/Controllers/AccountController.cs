@@ -198,6 +198,10 @@
                     upload.SaveAs(path);
                     user.ProfilePicturePath = path;
                 }
+                else
+                {
+                    user.ProfilePicturePath = "~/UploadedFiles/avatar-placeholder.jpg";
+                }
 
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

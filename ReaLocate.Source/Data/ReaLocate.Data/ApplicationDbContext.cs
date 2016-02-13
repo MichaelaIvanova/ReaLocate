@@ -17,7 +17,7 @@
         {
         }
 
-       
+        public IDbSet<Photo> Photos { get; set; }
 
         public static ApplicationDbContext Create()
         {
