@@ -71,35 +71,58 @@
 </style>
 
 <h2>CreateRealEstate</h2>
-
+<div id="type-selector" class="controls" style="display:none">
+    <input type="radio" name="type" id="changetype-address" checked="checked">
+</div>
 <div style="height:661px">
     <div id="map"></div>
     @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>RealEstateViewModel</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>RealEstateViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
             <div class="form-group">
                 @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <div id="type-selector" class="controls" style="display:none">
-                        <input type="radio" name="type" id="changetype-address" checked="checked">
-                        <label for="changetype-address">Addresses</label>
-                    </div>
                     @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "pac-input" } })
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
     }
 </div>
 <div>
@@ -108,7 +131,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
+<script>
     // This example requires the Places library. Include the libraries=places
     // parameter when you first load the API. For example:
     // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -124,7 +147,7 @@
         var types = document.getElementById('type-selector');
         var info = document.getElementById('estate-info');
         //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-       // map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
         map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(info);
 
         var autocomplete = new google.maps.places.Autocomplete(input);

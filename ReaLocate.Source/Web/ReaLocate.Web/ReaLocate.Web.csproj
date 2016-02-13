@@ -291,6 +291,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
     <Content Include="Views\RealEstates\CreateRealEstate.cshtml" />
+    <Content Include="Views\RealEstates\RealEstateDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,10 +21,8 @@
             this.identifierProvider = identifierProvider;
         }
 
-        public int Add(RealEstate newRealEstate, string userId, int? agencyId = default(int?))
+        public int Add(RealEstate newRealEstate)
         {
-            newRealEstate.PublisherId = userId;
-            newRealEstate.AgencyId = agencyId;
 
             this.realEstates.Add(newRealEstate);
             this.realEstates.Save();
@@ -39,12 +37,23 @@
 
         public RealEstate GetByEncodedId(string id)
         {
-            throw new NotImplementedException();
+            var intId = this.identifierProvider.DecodeId(id);
+            var realEstate = this.realEstates.GetById(intId);
+            return realEstate;
         }
 
         public IQueryable<RealEstate> GetById(int id)
         {
-            throw new NotImplementedException();
+            return this.realEstates
+                .All()
+                .Where(c => c.Id == id);
+        }
+
+        public string EncodeId(int id)
+        {
+            var stringId = this.identifierProvider.EncodeId(id);
+
+            return stringId;
         }
     }
 }
