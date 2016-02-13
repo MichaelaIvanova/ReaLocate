@@ -12,7 +12,7 @@
     using Data;
     using Data.Common;
     using Services.Web;
-
+    using Services.Data.Contracts;
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -55,8 +55,8 @@
                 .As<IIdentifierProvider>()
                 .InstancePerRequest();
 
-            //var servicesAssembly = Assembly.GetAssembly(typeof(IJokesService));
-            //builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();
+            var servicesAssembly = Assembly.GetAssembly(typeof(IRealEstatesService));
+            builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();
 
             builder.RegisterGeneric(typeof(DbRepository<>))
                 .As(typeof(IDbRepository<>))

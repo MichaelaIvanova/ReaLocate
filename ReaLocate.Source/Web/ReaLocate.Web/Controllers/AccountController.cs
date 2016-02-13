@@ -1,18 +1,17 @@
 ﻿namespace ReaLocate.Web.Controllers
 {
+    using System;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-
     using ReaLocate.Data.Models;
     using ReaLocate.Web.ViewModels.Account;
-    using System;
-    using System.IO;
+
     [Authorize]
     public class AccountController : BaseController
     {
