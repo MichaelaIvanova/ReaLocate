@@ -17,7 +17,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(RealEstateViewModel realEstate)
+        public ActionResult Index(CreateRealEstateViewModel realEstate)
         {
             return this.View();
         }

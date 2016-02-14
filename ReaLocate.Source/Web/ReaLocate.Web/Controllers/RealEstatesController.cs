@@ -35,7 +35,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRealEstate(RealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
+        public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
         {
             // TODO get user and see if he has agency
             var userId = this.User.Identity.GetUserId();
@@ -43,6 +43,7 @@
             this.realEstatesService.Add(dbRealEstate);
             var realEstateEncodedId = this.realEstatesService.EncodeId(dbRealEstate.Id);
 
+            // TODO: refactor, make method
             foreach (var photo in files)
             {
                 // TODO make validation for content lenght
@@ -57,7 +58,7 @@
 
                     string filename = Guid.NewGuid().ToString() + ".jpg";
                     string path = directory + "/" + filename;
-                    string url = "~/UploadedFiles/ProfileImages/" + realEstateEncodedId + "/" + filename;
+                    string url = "~/UploadedFiles/RealEstatePhotos/" + realEstateEncodedId + "/" + filename;
                     photo.SaveAs(path);
                     var newPhoto = new Photo
                     {
@@ -75,7 +76,7 @@
         public ActionResult RealEstateDetails(string id)
         {
             var dbRealEstate = this.realEstatesService.GetByEncodedId(id);
-            RealEstateViewModel viewRealEstate = this.Mapper.Map<RealEstateViewModel>(dbRealEstate);
+            DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
 
             return this.View(viewRealEstate);
         }

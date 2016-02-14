@@ -1,4 +1,4 @@
-﻿@model ReaLocate.Web.ViewModels.RealEstateViewModel
+﻿@model ReaLocate.Web.ViewModels.DetailsRealEstateViewModel
 
 @{
     ViewBag.Title = "RealEstateDetails";
@@ -7,7 +7,7 @@
 <h2>RealEstateDetails</h2>
 
 <div>
-    <h4>RealEstateViewModel</h4>
+    <h4>DetailsRealEstateViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -34,24 +34,14 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PublisherId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PublisherId)
-        </dd>
-
     </dl>
 </div>
+@foreach(var photo in Model.Photos)
+{
+    <div style="height:200px">
+        <img  src="@Href(photo.SourceUrl)"/>
+    </div>
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
