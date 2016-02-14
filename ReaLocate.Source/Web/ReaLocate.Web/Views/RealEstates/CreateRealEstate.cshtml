@@ -76,7 +76,7 @@
 </div>
 <div style="height:800px">
     <div id="map"></div>
-    @using (Html.BeginForm(new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("CreateRealEstate", "RealEstates", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -124,6 +124,7 @@
                         </div>
                     </div>
                 }
+
                 <br />
 
             </div>
@@ -248,7 +249,7 @@
 
         $("#submit-final").click(function (event) {
             alert("Handler  presubmit for  called.");
-            
+
             if ($("form").validate().form()) {
                 // valid, proceed with geocoding
                 var geocoder = new google.maps.Geocoder();
@@ -263,10 +264,10 @@
                         alert("Geocode was not successful for the following reason: " + status);
 
                     }
-                    // proceed to submit form                    
+                    // proceed to submit form
                 })
             }
-            event.preventDefault();
+            // event.preventDefault();
         });
     </script>
 }
