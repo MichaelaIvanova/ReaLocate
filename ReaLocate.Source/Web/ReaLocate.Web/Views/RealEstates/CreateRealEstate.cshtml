@@ -76,7 +76,7 @@
 </div>
 <div style="height:800px">
     <div id="map"></div>
-    @using (Html.BeginForm(new { enctype = "multipart/form-data" , onsubmit = "validateGeo();" }))
+    @using (Html.BeginForm(new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -268,28 +268,5 @@
             }
             event.preventDefault();
         });
-
-
-
-        function validateGeo() {
-            console.log("validate Geo");
-            // check if the form is valid
-            if ($("form").validate().form()) {
-                // valid, proceed with geocoding
-                var geocoder = new google.maps.Geocoder();
-                var address = $("#pac-input").val();
-                geocoder.geocode({ 'address': address }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        //$("#LatitudeLongitude").val(results[0].geometry.location);
-                    }
-                    else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-                    // proceed to submit form
-                    $("#submit-final").click();
-                })
-            }
-            return false;
-        }
     </script>
 }
