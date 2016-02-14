@@ -12,6 +12,7 @@
     using Web.Infrastructure.Mapping;
     using System.IO;
     using System.Threading.Tasks;
+    using Geocoding.Google;
     [Authorize]
     public class RealEstatesController : BaseController
     {
@@ -37,40 +38,67 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
         {
-            // TODO get user and see if he has agency
-            var userId = this.User.Identity.GetUserId();
-            var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
-            this.realEstatesService.Add(dbRealEstate);
-            var realEstateEncodedId = this.realEstatesService.EncodeId(dbRealEstate.Id);
+            string address = GetRealAddress(realEstate);
 
-            // TODO: refactor, make method
-            foreach (var photo in files)
+            if (address != null)
             {
-                // TODO make validation for content lenght
-                if (photo != null && photo.ContentLength > 0 && photo.ContentType == "image/jpeg")
+                // TODO get user and see if he has agency
+                var userId = this.User.Identity.GetUserId();
+                var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
+                this.realEstatesService.Add(dbRealEstate);
+                var realEstateEncodedId = this.realEstatesService.EncodeId(dbRealEstate.Id);
+
+                foreach (var photo in files)
                 {
-                    string directory = this.Server.MapPath("~/UploadedFiles/RealEstatePhotos/") + realEstateEncodedId;
 
-                    if (!Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    string filename = Guid.NewGuid().ToString() + ".jpg";
-                    string path = directory + "/" + filename;
-                    string url = "~/UploadedFiles/RealEstatePhotos/" + realEstateEncodedId + "/" + filename;
-                    photo.SaveAs(path);
-                    var newPhoto = new Photo
-                    {
-                        SourceUrl = url,
-                        RealEstate = dbRealEstate
-                    };
-
-                    this.photosService.Add(newPhoto);
+                    this.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
                 }
+
+                return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });
+            }
+            else
+            {
+                return this.RedirectToAction("Index", "Home");
             }
 
-            return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });
+        }
+
+        private static string GetRealAddress(CreateRealEstateViewModel realEstate)
+        {
+            var geocoder = new GoogleGeocoder();
+            if (realEstate.Address != null && realEstate.Address.Length>5)
+            {
+                List<GoogleAddress> addresses = geocoder.Geocode(realEstate.Address).ToList();
+                var address = @addresses[0].FormattedAddress;
+                return address;
+            }
+            return null;
+        }
+
+        private void SavePhoto(RealEstate dbRealEstate, string realEstateEncodedId, HttpPostedFileBase photo)
+        {
+            //// TODO make validation for content lenght - DONE
+            if (photo != null && photo.ContentLength > 0 && photo.ContentLength < (1 * 1024 * 1024) && photo.ContentType == "image/jpeg")
+            {
+                string directory = this.Server.MapPath("~/UploadedFiles/RealEstatePhotos/") + realEstateEncodedId;
+
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                string filename = Guid.NewGuid().ToString() + ".jpg";
+                string path = directory + "/" + filename;
+                string url = "~/UploadedFiles/RealEstatePhotos/" + realEstateEncodedId + "/" + filename;
+                photo.SaveAs(path);
+                var newPhoto = new Photo
+                {
+                    SourceUrl = url,
+                    RealEstate = dbRealEstate
+                };
+
+                this.photosService.Add(newPhoto);
+            }
         }
 
         public ActionResult RealEstateDetails(string id)

@@ -256,7 +256,8 @@
                 console.log("here");
                 var address = $("#pac-input").val();
                 geocoder.geocode({ 'address': address }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
+                    if (status == google.maps.GeocoderStatus.OK & address.length>5) {
+                        console.log('hey is valid');
                         //$("#LatitudeLongitude").val(results[0].geometry.location);
                         $('form').submit();
                     }
