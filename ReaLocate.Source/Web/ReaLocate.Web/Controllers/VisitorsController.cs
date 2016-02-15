@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace ReaLocate.Web.Controllers
 {
-    public class VisitorsController : Controller
+    public class VisitorsController : BaseController
     {
 
         private readonly IUsersService usersService;
@@ -35,7 +35,7 @@ namespace ReaLocate.Web.Controllers
             var visitordDetailsId = (int)dbRealEstate.VisitorsDetailsId;
             var dbvisitors = this.visitorsService.GetById(visitordDetailsId);
 
-            var visitors = dbvisitors.AllUsers;
+            IEnumerable<User> visitors = dbvisitors.AllUsers;
 
             return View(visitors);
         }

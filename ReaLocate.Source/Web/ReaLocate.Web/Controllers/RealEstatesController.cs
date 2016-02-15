@@ -93,7 +93,7 @@
             this.visitorsService.Update(dbVisitors);
 
             DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
-
+            viewRealEstate.EncodedId = id;
             return this.View(viewRealEstate);
         }
 
