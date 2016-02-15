@@ -17,6 +17,6 @@ namespace ReaLocate.Web.ViewModels
 
         public int? PaymentDetailsId { get; set; }
 
-        public PaymentDetails PaymentDetails { get; set; }
+        public PaymentDetailsViewModel PaymentDetails { get; set; }
     }
 }

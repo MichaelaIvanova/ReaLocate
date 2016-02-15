@@ -44,10 +44,12 @@
   <ItemGroup>
     <Compile Include="AgenciesService.cs" />
     <Compile Include="Contracts\IAgenciesService.cs" />
+    <Compile Include="Contracts\IPaymentDetailsService.cs" />
     <Compile Include="Contracts\IPhotosService.cs" />
     <Compile Include="Contracts\IRealEstatesService.cs" />
     <Compile Include="Contracts\IVisitorsService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
+    <Compile Include="PaymentDetailsService.cs" />
     <Compile Include="PhotosService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RealEstatesService.cs" />

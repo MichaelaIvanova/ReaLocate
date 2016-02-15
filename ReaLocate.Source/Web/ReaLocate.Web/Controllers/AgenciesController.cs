@@ -14,11 +14,13 @@
     {
         private readonly IUsersService usersService;
         private readonly IAgenciesService agenciesService;
+        private readonly IPaymentDetailsService paymentService;
 
-        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService)
+        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService, IPaymentDetailsService paymentService)
         {
             this.usersService = usersService;
             this.agenciesService = agenciesService;
+            this.paymentService = paymentService;
         }
 
         [HttpGet]
@@ -42,6 +44,10 @@
         {
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+
+            var dbPaymentDetails = this.Mapper.Map<PaymentDetails>(agency.PaymentDetails);
+            //save payment details
+            this.paymentService.Add(dbPaymentDetails);
 
             var dbAgency = this.Mapper.Map<Agency>(agency);
             dbAgency.OwnerId = userId;
