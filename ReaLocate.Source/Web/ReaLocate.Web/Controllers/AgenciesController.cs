@@ -61,6 +61,11 @@
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
             var viewAgency = this.Mapper.Map<DetailsAgencyViewModel>(dbAgency);
+
+            currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
+            currentlyLoggedUser.MyOwnAgency = dbAgency;
+            this.usersService.Update(currentlyLoggedUser);
+
             viewAgency.EncodedId = id;
             return this.View(viewAgency);
         }

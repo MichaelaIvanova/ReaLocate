@@ -17,5 +17,12 @@
         {
             return this.users.GetById(id);
         }
+
+        public void Update(User user)
+        {
+            this.users.Update(user);
+
+            this.users.SaveChanges();
+        }
     }
 }

@@ -5,7 +5,10 @@ namespace ReaLocate.Web.ViewModels
 
     public class DetailsAgencyViewModel : IMapFrom<Agency>
     {
+        public int Id { get; set; }
+
         public string EncodedId { get; set; }
+
         public string Name { get; set; }
 
         public string OwnerId { get; set; }
