@@ -7,5 +7,7 @@
         User GetUserDetails(string id);
 
         void Update(User user);
+
+        string EncodeId(int id);
     }
 }

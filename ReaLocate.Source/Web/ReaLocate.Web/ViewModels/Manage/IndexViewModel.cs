@@ -15,5 +15,9 @@
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }
+
+        public string AgencyId { get; set; }
+
+        public string AgencyName { get; set; }
     }
 }

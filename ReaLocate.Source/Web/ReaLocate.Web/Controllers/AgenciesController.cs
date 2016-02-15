@@ -56,6 +56,10 @@
             var newAgencyId = this.agenciesService.Add(dbAgency);
             var encodedId = this.agenciesService.EncodeId(newAgencyId);
 
+            currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
+            currentlyLoggedUser.MyOwnAgency = dbAgency;
+            this.usersService.Update(currentlyLoggedUser);
+
             return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
         }
 
@@ -68,9 +72,7 @@
 
             var viewAgency = this.Mapper.Map<DetailsAgencyViewModel>(dbAgency);
 
-            currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
-            currentlyLoggedUser.MyOwnAgency = dbAgency;
-            this.usersService.Update(currentlyLoggedUser);
+            
 
             viewAgency.EncodedId = id;
             return this.View(viewAgency);

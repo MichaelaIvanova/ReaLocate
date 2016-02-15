@@ -10,7 +10,7 @@
     using Microsoft.Owin.Security;
 
     using ReaLocate.Web.ViewModels.Manage;
-
+    using Services.Data;
     [Authorize]
     public class ManageController : BaseController
     {
@@ -21,8 +21,11 @@
 
         private ApplicationUserManager userManager;
 
-        public ManageController()
+        private readonly IUsersService usersService;
+
+        public ManageController(IUsersService usersService)
         {
+            this.usersService = usersService;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -94,8 +97,12 @@
                                                                            : string.Empty;
 
             var userId = this.User.Identity.GetUserId();
+            var currentLoggedUser = this.usersService.GetUserDetails(userId);
+
             var model = new IndexViewModel
                             {
+                                AgencyId = this.usersService.EncodeId((int)currentLoggedUser.MyOwnAgencyId),
+                                AgencyName = currentLoggedUser.MyOwnAgency.Name,
                                 HasPassword = this.HasPassword(),
                                 PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
                                 TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
