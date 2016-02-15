@@ -7,8 +7,10 @@
     {
         IQueryable<VisitorsDetails> GetAll(int skip, int take);
 
-        IQueryable<VisitorsDetails> GetById(int id);
+        VisitorsDetails GetById(int id);
 
         int Add(VisitorsDetails details);
+
+        void Update(VisitorsDetails details);
     }
 }

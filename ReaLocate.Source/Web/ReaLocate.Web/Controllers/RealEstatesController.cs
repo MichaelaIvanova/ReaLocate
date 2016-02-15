@@ -21,6 +21,7 @@
         private readonly IPhotosService photosService;
         private readonly IVisitorsService visitorsService;
         private readonly IUsersService usersService;
+       // private User currentlyLoggedUser;
 
         public RealEstatesController(IRealEstatesService realEstatesService, IPhotosService photosService, IVisitorsService visitorsService, IUsersService usersService)
         {
@@ -33,8 +34,19 @@
         [HttpGet]
         public ActionResult CreateRealEstate()
         {
-            // TODO, see if user is ana agency or normal
-            this.ViewBag.MaxPhotos = 3;
+            // TODO, see if user is ana agency or normal -Done
+            var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+
+            if(currentlyLoggedUser.MyOwnAgency != null
+                || currentlyLoggedUser.AgencyWorkFor != null)
+            {
+                this.ViewBag.MaxPhotos = 10;
+            }
+            else
+            {
+                this.ViewBag.MaxPhotos = 3;
+            }
 
             return this.View();
         }
@@ -48,19 +60,7 @@
 
             if (address != null)
             {
-                // TODO get user and see if he has agency
-                var userId = this.User.Identity.GetUserId();
-                var currentUser = this.usersService.GetUserDetails(userId);
-
-                realEstate.Country = addressFull.Components[3].LongName;
-                realEstate.City = addressFull.Components[0].LongName;
-                var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
-
-                var visitors = new VisitorsDetails();
-                visitors.AllUsers.Add(currentUser);
-                var visitorsDetailsId = this.visitorsService.Add(visitors);
-                dbRealEstate.VisitorsDetailsId = visitorsDetailsId;
-
+                RealEstate dbRealEstate = CreateRealEstate(realEstate, addressFull);
                 this.realEstatesService.Add(dbRealEstate);
                 var realEstateEncodedId = this.realEstatesService.EncodeId(dbRealEstate.Id);
 
@@ -82,10 +82,16 @@
         public ActionResult RealEstateDetails(string id)
         {
             var dbRealEstate = this.realEstatesService.GetByEncodedId(id);
+            var visitorsId = (int)dbRealEstate.VisitorsDetailsId;
+            VisitorsDetails dbVisitors = this.visitorsService.GetById(visitorsId);
 
-            //this.visitorsService.Add(new VisitorsDetails());
+            var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
-            
+            //update entity
+            dbVisitors.AllUsers.Add(currentlyLoggedUser);
+            this.visitorsService.Update(dbVisitors);
+
             DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
 
             return this.View(viewRealEstate);
@@ -94,6 +100,7 @@
         private GoogleAddress GetRealAddress(CreateRealEstateViewModel realEstate)
         {
             var geocoder = new GoogleGeocoder();
+
             if (realEstate.Address != null && realEstate.Address.Length > 5)
             {
                 List<GoogleAddress> addresses = geocoder.Geocode(realEstate.Address).ToList();
@@ -105,7 +112,6 @@
 
         private void SavePhoto(RealEstate dbRealEstate, string realEstateEncodedId, HttpPostedFileBase photo)
         {
-            //// TODO make validation for content lenght - DONE
             if (photo != null && photo.ContentLength > 0 && photo.ContentLength < (1 * 1024 * 1024) && photo.ContentType == "image/jpeg")
             {
                 string directory = this.Server.MapPath("~/UploadedFiles/RealEstatePhotos/") + realEstateEncodedId;
@@ -129,6 +135,22 @@
             }
         }
 
+        private RealEstate CreateRealEstate(CreateRealEstateViewModel realEstate, GoogleAddress addressFull)
+        {
+            var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
+            realEstate.Country = addressFull.Components[3].LongName;
+            realEstate.City = addressFull.Components[0].LongName;
+            var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
+
+            var visitors = new VisitorsDetails();
+            visitors.AllUsers.Add(currentlyLoggedUser);
+
+            var visitorsDetailsId = this.visitorsService.Add(visitors);
+            dbRealEstate.VisitorsDetailsId = visitorsDetailsId;
+            dbRealEstate.VisitorsDetails = visitors;
+            return dbRealEstate;
+        }
     }
 }

@@ -10,9 +10,9 @@
     using ReaLocate.Data.Common;
     public class VisitorsService : IVisitorsService
     {
-        private readonly IDbRepository<VisitorsDetails> visitorsDetails;
+        private readonly IRepository<VisitorsDetails> visitorsDetails;
 
-        public VisitorsService(IDbRepository<VisitorsDetails> visitorsDetails)
+        public VisitorsService(IRepository<VisitorsDetails> visitorsDetails)
         {
             this.visitorsDetails = visitorsDetails;
         }
@@ -20,7 +20,7 @@
         public int Add(VisitorsDetails details)
         {
             this.visitorsDetails.Add(details);
-            this.visitorsDetails.Save();
+            this.visitorsDetails.SaveChanges();
 
             return details.Id;
         }
@@ -30,11 +30,19 @@
             throw new NotImplementedException();
         }
 
-        public IQueryable<VisitorsDetails> GetById(int id)
+        public VisitorsDetails GetById(int id)
         {
             return this.visitorsDetails
                 .All()
-                .Where(c => c.Id == id);
+                .Where(c => c.Id == id)
+                .First();
+        }
+
+        public void Update(VisitorsDetails details)
+        {
+            this.visitorsDetails.Update(details);
+
+            this.visitorsDetails.SaveChanges();
         }
     }
 }

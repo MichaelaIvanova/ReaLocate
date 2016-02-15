@@ -47,10 +47,20 @@
 
     </dl>
 </div>
-@foreach(var photo in Model.Photos)
+
+<p>
+    @{
+        var redirect = "/Visitors/WhoViewRealEstateDetails/" + Model.EncodedId;
+    }
+    <a href=@redirect>REDIRECT to views!!!!!!!!!!</a>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@foreach (var photo in Model.Photos)
 {
-    <div style="height:200px">
-        <img  src="@Href(photo.SourceUrl)"/>
+    <div style="height:100px">
+        <img src="@Href(photo.SourceUrl)" />
     </div>
 }
 <p>

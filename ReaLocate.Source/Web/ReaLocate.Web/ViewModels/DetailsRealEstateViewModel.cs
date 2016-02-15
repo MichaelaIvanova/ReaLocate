@@ -6,6 +6,8 @@
 
     public class DetailsRealEstateViewModel : IMapFrom<RealEstate>
     {
+        public string EncodedId { get; set; }
+
         public string Address { get; set; }
 
         public string Country { get; set; }
