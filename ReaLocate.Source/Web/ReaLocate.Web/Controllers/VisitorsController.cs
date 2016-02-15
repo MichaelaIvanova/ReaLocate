@@ -2,6 +2,7 @@
 using ReaLocate.Data.Models;
 using ReaLocate.Services.Data;
 using ReaLocate.Services.Data.Contracts;
+using ReaLocate.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +36,16 @@ namespace ReaLocate.Web.Controllers
             var visitordDetailsId = (int)dbRealEstate.VisitorsDetailsId;
             var dbvisitors = this.visitorsService.GetById(visitordDetailsId);
 
-            IEnumerable<User> visitors = dbvisitors.AllUsers;
+            var visitors = dbvisitors.AllUsers;
+            var viewVisitors = new List<VisitorViewModel>();
 
-            return View(visitors);
+            foreach (var user in visitors)
+            {
+                var userView = this.Mapper.Map<VisitorViewModel>(user);
+                viewVisitors.Add(userView);
+            }
+
+            return View(viewVisitors);
         }
     }
 }
