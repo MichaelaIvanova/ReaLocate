@@ -23,7 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ProfilePicturePath)
         </th>
-        <th></th>
+        <th>
+            Details
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -41,9 +43,10 @@
                 <img src="@Href(item.ProfilePicturePath)" width="50" />
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @{
+                var redirect = "/Visitors/VisitorDetails/" + item.Id;
+            }
+            <a href=@redirect>Details</a>
         </td>
     </tr>
 }

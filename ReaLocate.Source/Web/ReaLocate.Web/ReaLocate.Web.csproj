@@ -207,6 +207,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Controllers\RealEstatesController.cs" />
+    <Compile Include="ViewModels\VisitorDetailsViewModel.cs" />
     <Compile Include="Controllers\VisitorsController.cs" />
     <Compile Include="Filters\MaxFileSizeAttribute.cs" />
     <Compile Include="ViewModels\CreateRealEstateViewModel.cs" />
@@ -301,6 +302,7 @@
     <Content Include="Views\RealEstates\CreateRealEstate.cshtml" />
     <Content Include="Views\RealEstates\RealEstateDetails.cshtml" />
     <Content Include="Views\Visitors\WhoViewRealEstateDetails.cshtml" />
+    <Content Include="Views\Visitors\VisitorDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

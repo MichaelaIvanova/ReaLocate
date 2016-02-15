@@ -47,5 +47,13 @@ namespace ReaLocate.Web.Controllers
 
             return View(viewVisitors);
         }
+
+        public ActionResult VisitorDetails(string id)
+        {
+            var dbUser = this.usersService.GetUserDetails(id);
+            var userView = this.Mapper.Map<VisitorDetailsViewModel>(dbUser);
+
+            return View(userView);
+        }
     }
 }
