@@ -34,12 +34,16 @@
 
         public virtual Agency Agency { get; set; }
 
-        public int? VisitorsDetails { get; set; }
+        public int? VisitorsDetailsId { get; set; }
 
-        public VisitorsDetails VisitorsDetail { get; set; }
+        public VisitorsDetails VisitorsDetails { get; set; }
 
         //to show it on google maps
         public string Address { get; set; }
+
+        public string Country { get; set; }
+
+        public string City { get; set; }
 
         public virtual ICollection<Photo> Photos { get { return this.photos; } set { this.photos = value; } }
 

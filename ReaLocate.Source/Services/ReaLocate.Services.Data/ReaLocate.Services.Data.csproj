@@ -44,9 +44,13 @@
   <ItemGroup>
     <Compile Include="Contracts\IPhotosService.cs" />
     <Compile Include="Contracts\IRealEstatesService.cs" />
+    <Compile Include="Contracts\IVisitorsService.cs" />
+    <Compile Include="Contracts\IUsersService.cs" />
     <Compile Include="PhotosService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RealEstatesService.cs" />
+    <Compile Include="UsersService.cs" />
+    <Compile Include="VisitorsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

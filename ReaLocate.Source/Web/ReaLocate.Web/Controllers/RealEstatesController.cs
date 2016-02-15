@@ -9,20 +9,25 @@
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
     using ViewModels;
-    using Web.Infrastructure.Mapping;
     using System.IO;
     using System.Threading.Tasks;
     using Geocoding.Google;
+    using Services.Data;
+
     [Authorize]
     public class RealEstatesController : BaseController
     {
         private readonly IRealEstatesService realEstatesService;
         private readonly IPhotosService photosService;
+        private readonly IVisitorsService visitorsService;
+        private readonly IUsersService usersService;
 
-        public RealEstatesController(IRealEstatesService realEstatesService, IPhotosService photosService)
+        public RealEstatesController(IRealEstatesService realEstatesService, IPhotosService photosService, IVisitorsService visitorsService, IUsersService usersService)
         {
             this.realEstatesService = realEstatesService;
             this.photosService = photosService;
+            this.visitorsService = visitorsService;
+            this.usersService = usersService;
         }
 
         [HttpGet]
@@ -38,13 +43,24 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
         {
-            string address = GetRealAddress(realEstate);
+            var addressFull = GetRealAddress(realEstate);
+            var address = @addressFull.FormattedAddress;
 
             if (address != null)
             {
                 // TODO get user and see if he has agency
                 var userId = this.User.Identity.GetUserId();
+                var currentUser = this.usersService.GetUserDetails(userId);
+
+                realEstate.Country = addressFull.Components[3].LongName;
+                realEstate.City = addressFull.Components[0].LongName;
                 var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
+
+                var visitors = new VisitorsDetails();
+                visitors.AllUsers.Add(currentUser);
+                var visitorsDetailsId = this.visitorsService.Add(visitors);
+                dbRealEstate.VisitorsDetailsId = visitorsDetailsId;
+
                 this.realEstatesService.Add(dbRealEstate);
                 var realEstateEncodedId = this.realEstatesService.EncodeId(dbRealEstate.Id);
 
@@ -63,14 +79,26 @@
 
         }
 
-        private static string GetRealAddress(CreateRealEstateViewModel realEstate)
+        public ActionResult RealEstateDetails(string id)
+        {
+            var dbRealEstate = this.realEstatesService.GetByEncodedId(id);
+
+            //this.visitorsService.Add(new VisitorsDetails());
+
+            
+            DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
+
+            return this.View(viewRealEstate);
+        }
+
+        private GoogleAddress GetRealAddress(CreateRealEstateViewModel realEstate)
         {
             var geocoder = new GoogleGeocoder();
-            if (realEstate.Address != null && realEstate.Address.Length>5)
+            if (realEstate.Address != null && realEstate.Address.Length > 5)
             {
                 List<GoogleAddress> addresses = geocoder.Geocode(realEstate.Address).ToList();
-                var address = @addresses[0].FormattedAddress;
-                return address;
+                var fullAddress = addresses[0];
+                return fullAddress;
             }
             return null;
         }
@@ -101,12 +129,6 @@
             }
         }
 
-        public ActionResult RealEstateDetails(string id)
-        {
-            var dbRealEstate = this.realEstatesService.GetByEncodedId(id);
-            DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
 
-            return this.View(viewRealEstate);
-        }
     }
 }
