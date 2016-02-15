@@ -1,0 +1,50 @@
+﻿@model ReaLocate.Web.ViewModels.DetailsAgencyViewModel
+
+@{
+    ViewBag.Title = "AgencyDetails";
+}
+
+<h2>AgencyDetails</h2>
+
+<div>
+    <h4>DetailsAgencyViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EncodedId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EncodedId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentDetailsId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentDetailsId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

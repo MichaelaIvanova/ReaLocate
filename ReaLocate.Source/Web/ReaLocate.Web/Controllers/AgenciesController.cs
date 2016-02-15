@@ -1,5 +1,6 @@
 ﻿namespace ReaLocate.Web.Controllers
 {
+    using Data.Models;
     using Microsoft.AspNet.Identity;
     using Services.Data;
     using Services.Data.Contracts;
@@ -26,7 +27,7 @@
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
-            if(currentlyLoggedUser.MyOwnAgencyId != null)
+            if (userId == null || currentlyLoggedUser.MyOwnAgencyId != null)
             {
                 // TODO:  redirect ro error page
                 return this.RedirectToAction("Index", "Home");
@@ -37,11 +38,31 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAgency( CreateAgencyViewModel agency)
+        public ActionResult CreateAgency(CreateAgencyViewModel agency)
         {
             var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
-            return View();
+            var dbAgency = this.Mapper.Map<Agency>(agency);
+            dbAgency.OwnerId = userId;
+            dbAgency.Owner = currentlyLoggedUser;
+
+            var newAgencyId = this.agenciesService.Add(dbAgency);
+            var encodedId = this.agenciesService.EncodeId(newAgencyId);
+
+            return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
+        }
+
+        public ActionResult AgencyDetails(string id)
+        {
+            var dbAgency = this.agenciesService.GetByEncodedId(id);
+
+            var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+
+            var viewAgency = this.Mapper.Map<DetailsAgencyViewModel>(dbAgency);
+            viewAgency.EncodedId = id;
+            return this.View(viewAgency);
         }
     }
 }
