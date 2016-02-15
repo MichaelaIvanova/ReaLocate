@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgenciesService.cs" />
+    <Compile Include="Contracts\IAgenciesService.cs" />
     <Compile Include="Contracts\IPhotosService.cs" />
     <Compile Include="Contracts\IRealEstatesService.cs" />
     <Compile Include="Contracts\IVisitorsService.cs" />

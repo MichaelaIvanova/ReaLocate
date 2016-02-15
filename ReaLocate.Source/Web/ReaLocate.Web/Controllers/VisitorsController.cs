@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ReaLocate.Web.Controllers
 {
+    [Authorize]
     public class VisitorsController : BaseController
     {
 
