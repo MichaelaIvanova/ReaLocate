@@ -31,6 +31,7 @@
 
         public IDbSet<Amentity> Amentities { get; set; }
 
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

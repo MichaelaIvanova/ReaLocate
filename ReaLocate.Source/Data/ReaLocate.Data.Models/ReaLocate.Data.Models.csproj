@@ -62,6 +62,7 @@
     <Compile Include="Agency.cs" />
     <Compile Include="Amentity.cs" />
     <Compile Include="Duration.cs" />
+    <Compile Include="ExtendedUserRole.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="PaymentDetails.cs" />
     <Compile Include="PaymentType.cs" />

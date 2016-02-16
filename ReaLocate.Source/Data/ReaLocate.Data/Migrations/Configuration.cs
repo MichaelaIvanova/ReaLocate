@@ -17,14 +17,14 @@
         protected override void Seed(ApplicationDbContext context)
         {
             var userManager = new UserManager<User>(new UserStore<User>(context));
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<ExtendedUserRole>(new RoleStore<ExtendedUserRole>(context));
 
             if (!roleManager.Roles.Any())
             {
-                roleManager.Create(new IdentityRole { Name = "Regular" });
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "AgencyOwner" });
-                roleManager.Create(new IdentityRole { Name = "Broker" });
+                roleManager.Create(new ExtendedUserRole { Name = "Regular", Description="Regular" });
+                roleManager.Create(new ExtendedUserRole { Name = "Admin", Description = "Admin" });
+                roleManager.Create(new ExtendedUserRole { Name = "AgencyOwner",Description= "AgencyOwner" });
+                roleManager.Create(new ExtendedUserRole { Name = "Broker", Description= "Broker" });
             }
 
             context.SaveChanges();
@@ -48,6 +48,8 @@
             }
 
             context.SaveChanges();
+
+            var roles = roleManager.Roles.ToList();
         }
     }
 }

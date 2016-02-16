@@ -10,18 +10,21 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using System.Web.Security;
     using ViewModels;
     public class AgenciesController : BaseController
     {
         private readonly IUsersService usersService;
         private readonly IAgenciesService agenciesService;
         private readonly IPaymentDetailsService paymentService;
+        private readonly IUsersRolesService rolesService;
 
-        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService, IPaymentDetailsService paymentService)
+        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService, IPaymentDetailsService paymentService, IUsersRolesService rolesService)
         {
             this.usersService = usersService;
             this.agenciesService = agenciesService;
             this.paymentService = paymentService;
+            this.rolesService = rolesService;
         }
 
         [HttpGet]
@@ -30,19 +33,16 @@
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
-            if (this.User.IsInRole("Admin"))
+            //currentlyLoggedUser.Roles.Add(new IdentityUserRole() { RoleId=});
+            var c = this.rolesService.GetRoleByName("Admin");
+
+            if (userId == null || currentlyLoggedUser.MyOwnAgencyId != null)
             {
-                // TODO:  redirect ro error page - you hava gency alredy
+                // TODO:  redirect ro error page
                 return this.RedirectToAction("Index", "Home");
             }
-            else if (this.User.IsInRole("AgencyOwner"))
-            {
-                return this.RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
+
+            return View();
         }
 
         [HttpPost]
@@ -65,11 +65,8 @@
 
             currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
             currentlyLoggedUser.MyOwnAgency = dbAgency;
-            
-            // admin
-            currentlyLoggedUser.Roles.Add(new IdentityUserRole() {RoleId= "b83ce087-3ed9-4b5c-8853-d533a8d7bf6e" });
             this.usersService.Update(currentlyLoggedUser);
-             
+
             return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
         }
 
