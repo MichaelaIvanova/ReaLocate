@@ -21,7 +21,7 @@
         private readonly IPaymentDetailsService paymentService;
         private readonly IUsersRolesService rolesService;
 
-        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService, 
+        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService,
             IPaymentDetailsService paymentService, IUsersRolesService rolesService)
         {
             this.usersService = usersService;
@@ -35,20 +35,27 @@
         {
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
-            var roleId = currentlyLoggedUser.Roles.First().RoleId;
-            var roleType = this.rolesService.GetRoleById(roleId).Name;
+            var roleCount = currentlyLoggedUser.Roles.Count();
 
-            if (roleType == "AgencyOwner")
+            if (roleCount != 0)
             {
-                return this.RedirectToAction("ErrorAgency", "Error");
-            }
-            else if(roleType == "Admin")
-            {
-                return this.RedirectToAction("ErrorAdmin", "Error");
-            }
-            else if(roleType == "Broker")
-            {
-                return this.RedirectToAction("ErrorBroker", "Error");
+                var roleId = currentlyLoggedUser.Roles.First().RoleId;
+                var roleType = this.rolesService.GetRoleById(roleId).Name;
+
+                if (roleType == "AgencyOwner")
+                {
+                    return this.RedirectToAction("ErrorAgency", "Error");
+                }
+                else if (roleType == "Admin")
+                {
+                    return this.RedirectToAction("ErrorAdmin", "Error");
+                }
+                else if (roleType == "Broker")
+                {
+                    return this.RedirectToAction("ErrorBroker", "Error");
+                }
+
+                return View();
             }
 
             return View();
