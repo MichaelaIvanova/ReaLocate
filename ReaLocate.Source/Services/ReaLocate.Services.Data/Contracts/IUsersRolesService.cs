@@ -10,5 +10,7 @@
     public interface IUsersRolesService
     {
         ExtendedUserRole GetRoleByName(string name);
+
+        ExtendedUserRole GetRoleById(string id);
     }
 }

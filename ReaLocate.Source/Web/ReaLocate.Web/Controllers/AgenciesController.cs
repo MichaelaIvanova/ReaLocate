@@ -12,6 +12,8 @@
     using System.Web.Mvc;
     using System.Web.Security;
     using ViewModels;
+
+
     public class AgenciesController : BaseController
     {
         private readonly IUsersService usersService;
@@ -32,12 +34,20 @@
         {
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var roleId = currentlyLoggedUser.Roles.First().RoleId;
+            var roleType = this.rolesService.GetRoleById(roleId).Name;
 
-            //check roles
-            if (userId == null || currentlyLoggedUser.MyOwnAgencyId != null)
+            if (roleType == "AgencyOwner")
             {
-                // TODO:  redirect ro error page
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("ErrorAgency", "Error");
+            }
+            else if(roleType == "Admin")
+            {
+                return this.RedirectToAction("ErrorAdmin", "Error");
+            }
+            else if(roleType == "Broker")
+            {
+                return this.RedirectToAction("ErrorBroker", "Error");
             }
 
             return View();
@@ -80,9 +90,6 @@
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
             var viewAgency = this.Mapper.Map<DetailsAgencyViewModel>(dbAgency);
-
-
-
             viewAgency.EncodedId = id;
             return this.View(viewAgency);
         }

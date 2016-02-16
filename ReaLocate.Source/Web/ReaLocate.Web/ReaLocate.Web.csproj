@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgenciesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="ViewModels\CreateAgencyViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -315,6 +316,7 @@
     <Folder Include="UploadedFiles\ProfileImages\" />
     <Folder Include="UploadedFiles\RealEstatePhotos\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

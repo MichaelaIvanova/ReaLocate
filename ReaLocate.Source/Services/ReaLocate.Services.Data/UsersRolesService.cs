@@ -17,6 +17,11 @@
             this.roles = roles;
         }
 
+        public ExtendedUserRole GetRoleById(string id)
+        {
+            return this.roles.GetById(id);
+        }
+
         public ExtendedUserRole GetRoleByName(string name)
         {
             return this.roles.All().Where(r => r.Description == name).First();
