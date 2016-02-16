@@ -2,6 +2,7 @@
 {
     using Data.Models;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Services.Data;
     using Services.Data.Contracts;
     using System;
@@ -29,13 +30,19 @@
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
-            if (userId == null || currentlyLoggedUser.MyOwnAgencyId != null)
+            if (this.User.IsInRole("Admin"))
             {
-                // TODO:  redirect ro error page
+                // TODO:  redirect ro error page - you hava gency alredy
                 return this.RedirectToAction("Index", "Home");
             }
-
-            return View();
+            else if (this.User.IsInRole("AgencyOwner"))
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -58,8 +65,11 @@
 
             currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
             currentlyLoggedUser.MyOwnAgency = dbAgency;
+            
+            // admin
+            currentlyLoggedUser.Roles.Add(new IdentityUserRole() {RoleId= "b83ce087-3ed9-4b5c-8853-d533a8d7bf6e" });
             this.usersService.Update(currentlyLoggedUser);
-
+             
             return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
         }
 
