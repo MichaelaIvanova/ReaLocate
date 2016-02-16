@@ -33,9 +33,7 @@
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
-            //currentlyLoggedUser.Roles.Add(new IdentityUserRole() { RoleId=});
-            var c = this.rolesService.GetRoleByName("Admin");
-
+            //check roles
             if (userId == null || currentlyLoggedUser.MyOwnAgencyId != null)
             {
                 // TODO:  redirect ro error page
@@ -65,6 +63,10 @@
 
             currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
             currentlyLoggedUser.MyOwnAgency = dbAgency;
+
+            var role = this.rolesService.GetRoleByName("AgencyOwner");
+            currentlyLoggedUser.Roles.Add(new IdentityUserRole() { RoleId = role.Id });
+
             this.usersService.Update(currentlyLoggedUser);
 
             return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
@@ -79,7 +81,7 @@
 
             var viewAgency = this.Mapper.Map<DetailsAgencyViewModel>(dbAgency);
 
-            
+
 
             viewAgency.EncodedId = id;
             return this.View(viewAgency);
