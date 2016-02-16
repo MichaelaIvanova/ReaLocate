@@ -54,6 +54,10 @@
             builder.Register(x => new IdentifierProvider())
                 .As<IIdentifierProvider>()
                 .InstancePerRequest();
+            builder.Register(x=> new RealEstateCreateUtil())
+                .As< IRealEstateCreateUtil >()
+                .InstancePerRequest();
+
 
             var servicesAssembly = Assembly.GetAssembly(typeof(IRealEstatesService));
             builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();

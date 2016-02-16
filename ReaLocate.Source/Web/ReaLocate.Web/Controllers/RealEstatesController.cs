@@ -1,6 +1,5 @@
 ﻿namespace ReaLocate.Web.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
@@ -9,7 +8,6 @@
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
     using ViewModels;
-    using System.IO;
     using System.Threading.Tasks;
     using Geocoding.Google;
     using Services.Data;
@@ -21,31 +19,49 @@
         private readonly IPhotosService photosService;
         private readonly IVisitorsService visitorsService;
         private readonly IUsersService usersService;
-       // private User currentlyLoggedUser;
+        private readonly IUsersRolesService rolesService;
+        private readonly IRealEstateCreateUtil util;
 
-        public RealEstatesController(IRealEstatesService realEstatesService, IPhotosService photosService, IVisitorsService visitorsService, IUsersService usersService)
+        public RealEstatesController(IRealEstatesService realEstatesService, IPhotosService photosService, IVisitorsService visitorsService,
+            IUsersService usersService, IUsersRolesService rolesService, IRealEstateCreateUtil util)
         {
             this.realEstatesService = realEstatesService;
             this.photosService = photosService;
             this.visitorsService = visitorsService;
             this.usersService = usersService;
+            this.rolesService = rolesService;
+            this.util = util;
         }
 
         [HttpGet]
         public ActionResult CreateRealEstate()
         {
-            // TODO, see if user is ana agency or normal -Done
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var roleCount = currentlyLoggedUser.Roles.Count();
+            this.ViewBag.MaxPhotos = 3;
 
-            if(currentlyLoggedUser.MyOwnAgency != null
-                || currentlyLoggedUser.AgencyWorkFor != null)
+            if (roleCount != 0)
             {
-                this.ViewBag.MaxPhotos = 10;
-            }
-            else
-            {
-                this.ViewBag.MaxPhotos = 3;
+                var roleId = currentlyLoggedUser.Roles.First().RoleId;
+                var roleType = this.rolesService.GetRoleById(roleId).Name;
+
+                if (roleType == "AgencyOwner")
+                {
+                    this.ViewBag.MaxPhotos = 5;
+                    return this.RedirectToAction("ErrorAgency", "Error");
+                }
+                else if (roleType == "Broker")
+                {
+                    this.ViewBag.MaxPhotos = 5;
+                    return this.RedirectToAction("ErrorBroker", "Error");
+                }
+                else if (roleType == "Admin")
+                {
+                    return this.RedirectToAction("ErrorAdmin", "Error");
+                }
+
+                return this.View();
             }
 
             return this.View();
@@ -55,7 +71,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
         {
-            var addressFull = GetRealAddress(realEstate);
+            var addressFull = this.util.GetRealAddress(realEstate);
             var address = @addressFull.FormattedAddress;
 
             if (address != null)
@@ -67,7 +83,7 @@
                 foreach (var photo in files)
                 {
 
-                    this.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
+                    this.util.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
                 }
 
                 return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });
@@ -76,7 +92,6 @@
             {
                 return this.RedirectToAction("Index", "Home");
             }
-
         }
 
         public ActionResult RealEstateDetails(string id)
@@ -95,44 +110,6 @@
             DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
             viewRealEstate.EncodedId = id;
             return this.View(viewRealEstate);
-        }
-
-        private GoogleAddress GetRealAddress(CreateRealEstateViewModel realEstate)
-        {
-            var geocoder = new GoogleGeocoder();
-
-            if (realEstate.Address != null && realEstate.Address.Length > 5)
-            {
-                List<GoogleAddress> addresses = geocoder.Geocode(realEstate.Address).ToList();
-                var fullAddress = addresses[0];
-                return fullAddress;
-            }
-            return null;
-        }
-
-        private void SavePhoto(RealEstate dbRealEstate, string realEstateEncodedId, HttpPostedFileBase photo)
-        {
-            if (photo != null && photo.ContentLength > 0 && photo.ContentLength < (1 * 1024 * 1024) && photo.ContentType == "image/jpeg")
-            {
-                string directory = this.Server.MapPath("~/UploadedFiles/RealEstatePhotos/") + realEstateEncodedId;
-
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-
-                string filename = Guid.NewGuid().ToString() + ".jpg";
-                string path = directory + "/" + filename;
-                string url = "~/UploadedFiles/RealEstatePhotos/" + realEstateEncodedId + "/" + filename;
-                photo.SaveAs(path);
-                var newPhoto = new Photo
-                {
-                    SourceUrl = url,
-                    RealEstate = dbRealEstate
-                };
-
-                this.photosService.Add(newPhoto);
-            }
         }
 
         private RealEstate CreateRealEstate(CreateRealEstateViewModel realEstate, GoogleAddress addressFull)

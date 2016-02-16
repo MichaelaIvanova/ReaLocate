@@ -11,7 +11,8 @@
     using Microsoft.Owin.Security;
     using ReaLocate.Data.Models;
     using ReaLocate.Web.ViewModels.Account;
-
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Services.Data.Contracts;
     [Authorize]
     public class AccountController : BaseController
     {
@@ -22,14 +23,17 @@
 
         private ApplicationUserManager userManager;
 
+        private readonly IUsersRolesService rolesService;
+
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,  IUsersRolesService rolesService)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
+            this.rolesService = rolesService;
         }
 
         public ApplicationSignInManager SignInManager

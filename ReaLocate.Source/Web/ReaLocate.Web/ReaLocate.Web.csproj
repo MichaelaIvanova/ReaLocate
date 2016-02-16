@@ -205,6 +205,8 @@
     <Compile Include="Controllers\AgenciesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\IRealEstateCreateUtil.cs" />
+    <Compile Include="Controllers\RealEstateCreateUtil.cs" />
     <Compile Include="ViewModels\CreateAgencyViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

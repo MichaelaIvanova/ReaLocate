@@ -13,7 +13,7 @@
     using System.Web.Security;
     using ViewModels;
 
-
+    [Authorize]
     public class AgenciesController : BaseController
     {
         private readonly IUsersService usersService;
@@ -21,7 +21,8 @@
         private readonly IPaymentDetailsService paymentService;
         private readonly IUsersRolesService rolesService;
 
-        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService, IPaymentDetailsService paymentService, IUsersRolesService rolesService)
+        public AgenciesController(IUsersService usersService, IAgenciesService agenciesService, 
+            IPaymentDetailsService paymentService, IUsersRolesService rolesService)
         {
             this.usersService = usersService;
             this.agenciesService = agenciesService;
