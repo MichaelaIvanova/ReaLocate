@@ -37,6 +37,7 @@
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
             var roleCount = currentlyLoggedUser.Roles.Count();
 
+            
             if (roleCount != 0)
             {
                 var roleId = currentlyLoggedUser.Roles.First().RoleId;

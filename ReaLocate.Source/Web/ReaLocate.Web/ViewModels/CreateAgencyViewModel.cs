@@ -2,7 +2,7 @@
 {
     using ReaLocate.Data.Models;
     using ReaLocate.Web.Infrastructure.Mapping;
-
+    using System.Web.Mvc;
     public class CreateAgencyViewModel : IMapTo<Agency>
     {
         public string Name { get; set; }
