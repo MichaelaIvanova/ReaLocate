@@ -98,20 +98,40 @@
 
             var userId = this.User.Identity.GetUserId();
             var currentLoggedUser = this.usersService.GetUserDetails(userId);
-
-            var model = new IndexViewModel
-                            {
-                                AgencyId = this.usersService.EncodeId((int)currentLoggedUser.MyOwnAgencyId),
-                                AgencyName = currentLoggedUser.MyOwnAgency.Name,
-                                HasPassword = this.HasPassword(),
-                                PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
-                                TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
-                                Logins = await this.UserManager.GetLoginsAsync(userId),
-                                BrowserRemembered =
+            
+            if(currentLoggedUser.MyOwnAgencyId != null)
+            {
+                var model = new IndexViewModel
+                {
+                    AgencyId = this.usersService.EncodeId((int)currentLoggedUser.MyOwnAgencyId) ?? null,
+                    AgencyName = currentLoggedUser.MyOwnAgency.Name,
+                    HasPassword = this.HasPassword(),
+                    PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
+                    TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
+                    Logins = await this.UserManager.GetLoginsAsync(userId),
+                    BrowserRemembered =
                                     await
                                     this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-                            };
-            return this.View(model);
+                };
+                return this.View(model);
+            }
+            else
+            {
+                var model = new IndexViewModel
+                {
+                    AgencyId = null,
+                    AgencyName = "No agency",
+                    HasPassword = this.HasPassword(),
+                    PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
+                    TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
+                    Logins = await this.UserManager.GetLoginsAsync(userId),
+                    BrowserRemembered =
+                                    await
+                                    this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                };
+                return this.View(model);
+            }
+            
         }
 
         // POST: /Manage/RemoveLogin
