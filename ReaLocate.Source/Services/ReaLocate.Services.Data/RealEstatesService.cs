@@ -30,9 +30,9 @@
             return newRealEstate.Id;
         }
 
-        public IQueryable<RealEstate> GetAll(int skip, int take)
+        public IQueryable<RealEstate> GetAllForPaging(int skip=0, int take=10)
         {
-            throw new NotImplementedException();
+            return this.realEstates.All().Skip(skip).Take(take);
         }
 
         public RealEstate GetByEncodedId(string id)
@@ -54,6 +54,13 @@
             var stringId = this.identifierProvider.EncodeId(id);
 
             return stringId;
+        }
+
+        public IQueryable<RealEstate> GetAll()
+        {
+            return this.realEstates
+                 .All()
+                 .OrderByDescending(c => c.CreatedOn);
         }
     }
 }

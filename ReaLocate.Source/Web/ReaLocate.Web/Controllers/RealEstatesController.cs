@@ -75,6 +75,11 @@
             var addressFull = this.util.GetRealAddress(realEstate);
             var address = @addressFull.FormattedAddress;
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(realEstate);
+            }
+
             if (address != null)
             {
                 RealEstate dbRealEstate = CreateRealEstate(realEstate, addressFull);
@@ -121,6 +126,8 @@
             realEstate.Country = addressFull.Components[3].LongName;
             realEstate.City = addressFull.Components[0].LongName;
             var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
+            dbRealEstate.Latitude = addressFull.Coordinates.Latitude;
+            dbRealEstate.Longitude = addressFull.Coordinates.Longitude;
 
             var visitors = new VisitorsDetails();
             visitors.AllUsers.Add(currentlyLoggedUser);

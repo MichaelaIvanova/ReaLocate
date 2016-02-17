@@ -5,9 +5,15 @@
 
     using Infrastructure.Mapping;
     using ViewModels;
-
+    using Services.Data.Contracts;
     public class HomeController : BaseController
     {
+        private readonly IRealEstatesService realEstateService;
+
+        public HomeController(IRealEstatesService realEstateService)
+        {
+            this.realEstateService = realEstateService;
+        }
 
         public ActionResult Index()
         {

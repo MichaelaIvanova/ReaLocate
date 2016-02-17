@@ -7,7 +7,9 @@
     {
         string EncodeId(int id);
 
-        IQueryable<RealEstate> GetAll(int skip, int take);
+        IQueryable<RealEstate> GetAll();
+
+        IQueryable<RealEstate> GetAllForPaging(int skip, int take);
 
         IQueryable<RealEstate> GetById(int id);
 

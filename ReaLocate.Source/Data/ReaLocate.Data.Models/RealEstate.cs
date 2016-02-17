@@ -45,9 +45,11 @@
 
         public string City { get; set; }
 
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
         public virtual ICollection<Photo> Photos { get { return this.photos; } set { this.photos = value; } }
 
         public virtual ICollection<Amentity> Amentities { get { return this.amentities; } set { this.amentities = value; } }
-
     }
 }
