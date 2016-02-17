@@ -1,0 +1,134 @@
+﻿@model IEnumerable<ReaLocate.Data.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type='text/css'>
+    /*設定 數字靠右*/
+    td:nth-child(13){text-align: right;}
+    td:nth-child(14){text-align: right;}
+    td:nth-child(15){text-align: right;}
+    td:nth-child(25){text-align: right;}
+</style>
+<h2>Index</h2>
+<h4>Users</h4>
+<p>
+    @Html.ActionLink("Create New", "UsersCreate")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgencyWorkFor.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MyOwnAgency.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDetails.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilePicturePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PasswordHash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecurityStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LockoutEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessFailedCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "UsersEdit", new { id=item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyWorkFor.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MyOwnAgency.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDetails.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfilePicturePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PasswordHash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecurityStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LockoutEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessFailedCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+
+    </tr>
+}
+
+</table>
