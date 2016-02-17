@@ -1,10 +1,9 @@
-﻿using System.Web;
-using Geocoding.Google;
-using ReaLocate.Data.Models;
-using ReaLocate.Web.ViewModels;
-
-namespace ReaLocate.Web.Controllers
+﻿namespace ReaLocate.Web.Controllers
 {
+    using System.Web;
+    using Geocoding.Google;
+    using ReaLocate.Data.Models;
+    using ReaLocate.Web.ViewModels;
     public interface IRealEstateCreateUtil
     {
         GoogleAddress GetRealAddress(CreateRealEstateViewModel realEstate);

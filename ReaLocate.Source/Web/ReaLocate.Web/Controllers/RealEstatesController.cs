@@ -11,7 +11,8 @@
     using System.Threading.Tasks;
     using Geocoding.Google;
     using Services.Data;
-
+    using System.IO;
+    using System;
     [Authorize]
     public class RealEstatesController : BaseController
     {
@@ -83,7 +84,7 @@
                 foreach (var photo in files)
                 {
 
-                    this.util.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
+                    this.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
                 }
 
                 return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });
@@ -128,6 +129,31 @@
             dbRealEstate.VisitorsDetailsId = visitorsDetailsId;
             dbRealEstate.VisitorsDetails = visitors;
             return dbRealEstate;
+        }
+
+        public void SavePhoto(RealEstate dbRealEstate, string realEstateEncodedId, HttpPostedFileBase photo)
+        {
+            if (photo != null && photo.ContentLength > 0 && photo.ContentLength < (1 * 1024 * 1024) && photo.ContentType == "image/jpeg")
+            {
+                string directory = this.Server.MapPath("~/UploadedFiles/RealEstatePhotos/") + realEstateEncodedId;
+
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                string filename = Guid.NewGuid().ToString() + ".jpg";
+                string path = directory + "/" + filename;
+                string url = "~/UploadedFiles/RealEstatePhotos/" + realEstateEncodedId + "/" + filename;
+                photo.SaveAs(path);
+                var newPhoto = new Photo
+                {
+                    SourceUrl = url,
+                    RealEstate = dbRealEstate
+                };
+
+                this.photosService.Add(newPhoto);
+            }
         }
     }
 }
