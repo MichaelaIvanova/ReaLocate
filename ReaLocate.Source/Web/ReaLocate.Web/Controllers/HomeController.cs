@@ -17,7 +17,14 @@
 
         public ActionResult Index()
         {
-            return this.View();
+            var estates = this.realEstateService.GetAll().To<DetailsRealEstateViewModel>().ToList();
+
+            foreach(var estate in estates)
+            {
+                estate.EncodedId = this.realEstateService.EncodeId(estate.Id);
+            }
+            
+            return this.View(estates);
         }
 
         [HttpPost]

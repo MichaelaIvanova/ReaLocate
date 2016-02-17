@@ -52,15 +52,13 @@
     @{
         var redirect = "/Visitors/WhoViewRealEstateDetails/" + Model.EncodedId;
     }
-    <a href=@redirect>REDIRECT to views!!!!!!!!!!</a>
-   
-    @Html.ActionLink("Back to List", "Index")
+    <a href=@redirect> See Who viewed this real estate!</a>
 </p>
 
 @foreach (var photo in Model.Photos)
 {
-    <div style="height:100px">
-        <img src="@Href(photo.SourceUrl)" />
+    <div>
+        <img class="img-responsive" src="@Href(photo.SourceUrl)"/>
     </div>
 }
 <p>

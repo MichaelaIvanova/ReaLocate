@@ -218,6 +218,7 @@
     <Compile Include="Controllers\IRealEstateCreateUtil.cs" />
     <Compile Include="Controllers\RealEstateCreateUtil.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="ViewModels\CoordinateViewModel.cs" />
     <Compile Include="ViewModels\CreateAgencyViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -314,7 +315,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -343,6 +343,7 @@
     <Content Include="Views\Agencies\CreateAgency.cshtml" />
     <Content Include="Views\Agencies\AgencyDetails.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

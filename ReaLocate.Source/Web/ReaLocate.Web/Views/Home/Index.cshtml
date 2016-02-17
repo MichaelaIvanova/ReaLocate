@@ -1,202 +1,50 @@
-﻿@model ReaLocate.Web.ViewModels.DetailsRealEstateViewModel
+﻿@model IEnumerable<ReaLocate.Web.ViewModels.DetailsRealEstateViewModel>
+
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
-<style>
-    #map {
-        height: 50%;
-    }
 
-    .controls {
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
+<h2>Index</h2>
 
-    #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-    }
 
-        #pac-input:focus {
-            border-color: #4d90fe;
-        }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>Details</th>
+    </tr>
 
-    .estate-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-bottom: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-    }
-
-    .pac-input:focus {
-        border-color: #4d90fe;
-    }
-
-    .pac-container {
-        font-family: Roboto;
-    }
-
-    #estate-info {
-        position: absolute;
-        top: 100px;
-    }
-
-    #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-    }
-
-        #type-selector label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
-</style>
-
-<h1>RealEstate</h1>
-<div style="height:661px">
-    <div id="map"></div>
-@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-{
-    
-    @Html.AntiForgeryToken()
-    <h4>Find real estate</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Address
-   , new { @class = "col-md-2 control-label"})
-        <div id="type-selector" class="controls" style="display:none">
-            <input type="radio" name="type" id="changetype-address" checked="checked">
-            <label for="changetype-address">Addresses</label>
-        </div>
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @id = "pac-input" })
-        </div>
-    </div>  
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Create real estate" />
-        </div>
-    </div>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @{
+                var redirect = "/RealEstates/RealEstateDetails/" + item.EncodedId;
+            }
+            <a href=@redirect>Details</a>
+        </td>
+    </tr>
 }
-</div>
-<script>
-    // This example requires the Places library. Include the libraries=places
-    // parameter when you first load the API. For example:
-    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 42.6932, lng: 23.3354 },
-            zoom: 16
-        });
-        //map.panBy(350, 10);
-
-        var input = (document.getElementById('pac-input'));
-        var types = document.getElementById('type-selector');
-        var info = document.getElementById('estate-info');
-        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-       // map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
-        map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(info);
-
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.bindTo('bounds', map);
-
-        var infowindow = new google.maps.InfoWindow();
-        var marker = new google.maps.Marker({
-            map: map,
-            anchorPoint: new google.maps.Point(0, -29)
-        });
-
-        autocomplete.addListener('place_changed', function () {
-            infowindow.close();
-            marker.setVisible(false);
-            var place = autocomplete.getPlace();
-            console.log(place);
-
-            if (!place.geometry) {
-                window.alert("No such place, please add correct address");
-                return;
-            }
-
-            // If the place has a geometry, then present it on a map.
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                //map.setCenter(place.geometry.location);
-                map.setCenterWithOffset(place.geometry.location, 0, 0);//set offset
-                map.setZoom(17);  // Why 17? Because it looks good.
-            }
-            marker.setIcon(/** @@type {google.maps.Icon} */({
-                url: place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(35, 35)
-            }));
-            marker.setPosition(place.geometry.location);
-            marker.setVisible(true);
-
-            var address = '';
-            if (place.address_components) {
-                address = [
-                    (place.address_components[0] && place.address_components[0].short_name || ''),
-                    (place.address_components[1] && place.address_components[1].short_name || ''),
-                    (place.address_components[2] && place.address_components[2].short_name || '')
-                ].join(' ');
-            }
-
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-            infowindow.open(map, marker);
-        });
-
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-            var radioButton = document.getElementById(id);
-            radioButton.addEventListener('click', function () {
-                autocomplete.setTypes(types);
-            });
-        }
-
-        // set offset of the center
-        google.maps.Map.prototype.setCenterWithOffset = function (latlng, offsetX, offsetY) {
-            var map = this;
-            var ov = new google.maps.OverlayView();
-            ov.onAdd = function () {
-                var proj = this.getProjection();
-                var aPoint = proj.fromLatLngToContainerPixel(latlng);
-                aPoint.x = aPoint.x + offsetX;
-                aPoint.y = aPoint.y + offsetY;
-                map.setCenter(proj.fromContainerPixelToLatLng(aPoint));
-            };
-            ov.draw = function () { };
-            ov.setMap(this);
-        };
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
-    }
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9tld7K2WnN4VSiW9l4g9P49nZGKvuHl4&signed_in=true&libraries=places&callback=initMap"
-        async defer></script>
+</table>
