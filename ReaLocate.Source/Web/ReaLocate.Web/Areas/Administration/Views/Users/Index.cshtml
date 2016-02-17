@@ -1,0 +1,12 @@
+﻿
+@(Html.Kendo().Grid<ReaLocate.Data.Models.VisitorsDetails>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Users_Read", "Users"))
+      )
+)
