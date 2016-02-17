@@ -27,6 +27,7 @@
                 var coordinate = new CoordinateViewModel
                 {
                     Address = estate.Address,
+                    EncodedId = estate.EncodedId,
                     GeoLat = estate.Latitude,
                     GeoLong = estate.Longitude
                 };

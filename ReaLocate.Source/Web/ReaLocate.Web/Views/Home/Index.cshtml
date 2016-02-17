@@ -98,7 +98,7 @@
 
         // This shows adding a simple pin "marker" - this happens to be the Tate Gallery in Liverpool!
         var myLatlng = new google.maps.LatLng(53.40091, -2.994464);
-       
+
         var marker = new google.maps.Marker({
             position: myLatlng,
             map: map,
@@ -123,10 +123,10 @@
 
             // Make the marker-pin blue!
             marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-
+            var redirectToDetails = "/RealEstates/RealEstateDetails/" + item.EncodedId;   
             // put in some information about each json object - in this case, the opening hours.
             var infowindow = new google.maps.InfoWindow({
-                content: "<div class='infoDiv'><h2>" + item.Address + "</h2>" + "<div><h4>Opening hours: " + item.OpeningHours + "</h4></div></div>"
+                content: "<div class='infoDiv'><h2>" + item.Address + "</h2>" + "<div><h4><a href=" + redirectToDetails+">Details</a></h4></div></div>"
             });
 
             // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
