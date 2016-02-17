@@ -7,9 +7,9 @@
 
     public class CoordinateViewModel
     {
-        public double Long { get; set; }
+        public double? GeoLong { get; set; }
 
-        public double Lat { get; set; }
+        public double? GeoLat { get; set; }
 
         public string Address { get; set; }
     }

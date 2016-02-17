@@ -124,7 +124,7 @@
             var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
 
             realEstate.Country = addressFull.Components[3].LongName;
-            realEstate.City = addressFull.Components[0].LongName;
+            realEstate.City = addressFull.Components[1].LongName;
             var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
             dbRealEstate.Latitude = addressFull.Coordinates.Latitude;
             dbRealEstate.Longitude = addressFull.Coordinates.Longitude;

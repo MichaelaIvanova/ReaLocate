@@ -225,6 +225,7 @@
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Controllers\RealEstatesController.cs" />
     <Compile Include="ViewModels\DetailsAgencyViewModel.cs" />
+    <Compile Include="ViewModels\IndexMapAndGridViewModel.cs" />
     <Compile Include="ViewModels\PaymentDetailsViewModel.cs" />
     <Compile Include="ViewModels\VisitorDetailsViewModel.cs" />
     <Compile Include="Controllers\VisitorsController.cs" />
