@@ -9,8 +9,8 @@
     using System;
     public class HomeController : BaseController
     {
-        private readonly IRealEstatesService realEstateService;
         private const int ItemsPerPage = 10;
+        private readonly IRealEstatesService realEstateService;
 
         public HomeController(IRealEstatesService realEstateService)
         {
@@ -33,22 +33,20 @@
             var totalPages = (int)Math.Ceiling(allItemsCount / (decimal)ItemsPerPage);
             var itemsToSkip = (page - 1) * ItemsPerPage;
 
-            var estates = this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
-                         .To<DetailsRealEstateViewModel>().ToList();
-            var coordinates = new List<CoordinateViewModel>();
-
-            foreach(var estate in estates)
-            {
-                estate.EncodedId = this.realEstateService.EncodeId(estate.Id);
-                var coordinate = new CoordinateViewModel
-                {
-                    Address = estate.Address,
-                    EncodedId = estate.EncodedId,
-                    GeoLat = estate.Latitude,
-                    GeoLong = estate.Longitude
-                };
-                coordinates.Add(coordinate);
-            }
+            var estates =
+               this.Cache.Get(
+                   "realEstatePerPage",
+                   () => this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
+                         .To<DetailsRealEstateViewModel>().ToList(),
+                   15 * 60);
+            //var estates = this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
+            //             .To<DetailsRealEstateViewModel>().ToList();
+            //List<CoordinateViewModel> coordinates = GetCoordinates(estates);
+            var coordinates =
+               this.Cache.Get(
+                   "coordinatesPerPage",
+                   () => GetCoordinates(estates),
+                   15 * 60);
 
             var indexView = new IndexMapAndGridViewModel
             {
@@ -71,6 +69,26 @@
         public ActionResult Chat()
         {
             return View();
+        }
+
+        private List<CoordinateViewModel> GetCoordinates(List<DetailsRealEstateViewModel> estates)
+        {
+            var coordinates = new List<CoordinateViewModel>();
+
+            foreach (var estate in estates)
+            {
+                estate.EncodedId = this.realEstateService.EncodeId(estate.Id);
+                var coordinate = new CoordinateViewModel
+                {
+                    Address = estate.Address,
+                    EncodedId = estate.EncodedId,
+                    GeoLat = estate.Latitude,
+                    GeoLong = estate.Longitude
+                };
+                coordinates.Add(coordinate);
+            }
+
+            return coordinates;
         }
     }
 }
