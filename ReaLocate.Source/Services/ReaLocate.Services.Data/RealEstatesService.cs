@@ -30,9 +30,10 @@
             return newRealEstate.Id;
         }
 
-        public IQueryable<RealEstate> GetAllForPaging(int skip=0, int take=10)
+        public IQueryable<RealEstate> GetAllForPaging(int skip, int take)
         {
-            return this.realEstates.All().Skip(skip).Take(take);
+            return this.realEstates.All().OrderByDescending(c=>c.CreatedOn)
+                .Skip(skip).Take(take);
         }
 
         public RealEstate GetByEncodedId(string id)

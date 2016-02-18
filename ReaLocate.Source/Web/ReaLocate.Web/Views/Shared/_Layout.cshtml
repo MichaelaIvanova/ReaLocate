@@ -22,9 +22,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Chat", "Chat", "Home")</li>
-                    <li>@Html.ActionLink("CreateRealEstate", "CreateRealEstate", "RealEstates")</li>
-                    <li>@Html.ActionLink("TestTest", "TestTest", "RealEstates")</li>
-                    <li>@Html.ActionLink("CreateAgency","CreateAgency","Agencies")</li>
+                    <li>@Html.ActionLink("Create RealEstate", "CreateRealEstate", "RealEstates")</li>
+                    <li>@Html.ActionLink("Create Agency","CreateAgency","Agencies")</li>
                     @if (User.IsInRole("Admin"))
                     {
                         @Html.Action("Menu", "Admin", routeValues: new { Area = "Administration", @class = "navbar-brand" })

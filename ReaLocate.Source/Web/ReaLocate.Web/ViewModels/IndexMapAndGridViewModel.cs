@@ -10,5 +10,7 @@ namespace ReaLocate.Web.ViewModels
         public IEnumerable<CoordinateViewModel> MapsCoordinates { get; set; }
 
         public IEnumerable<DetailsRealEstateViewModel> Estates { get; set; }
+        public int TotalPages { get; internal set; }
+        public int CurrentPage { get; internal set; }
     }
 }

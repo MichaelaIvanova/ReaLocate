@@ -6,19 +6,35 @@
     using Infrastructure.Mapping;
     using ViewModels;
     using Services.Data.Contracts;
+    using System;
     public class HomeController : BaseController
     {
         private readonly IRealEstatesService realEstateService;
+        private const int ItemsPerPage = 10;
 
         public HomeController(IRealEstatesService realEstateService)
         {
             this.realEstateService = realEstateService;
-            
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var estates = this.realEstateService.GetAll().To<DetailsRealEstateViewModel>().ToList();
+            int page;
+            if (id == string.Empty || id == null)
+            {
+                page = 1;
+            }
+            else
+            {
+                page = int.Parse(id);
+            }
+
+            var allItemsCount = this.realEstateService.GetAll().Count();
+            var totalPages = (int)Math.Ceiling(allItemsCount / (decimal)ItemsPerPage);
+            var itemsToSkip = (page - 1) * ItemsPerPage;
+
+            var estates = this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
+                         .To<DetailsRealEstateViewModel>().ToList();
             var coordinates = new List<CoordinateViewModel>();
 
             foreach(var estate in estates)
@@ -37,7 +53,9 @@
             var indexView = new IndexMapAndGridViewModel
             {
                 MapsCoordinates = coordinates,
-                Estates = estates
+                Estates = estates,
+                TotalPages = totalPages,
+                CurrentPage = page
             };
             return this.View(indexView);
         }
