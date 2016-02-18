@@ -97,7 +97,7 @@
                                                                            : string.Empty;
 
             var userId = this.User.Identity.GetUserId();
-            var currentLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentLoggedUser = this.usersService.GetUserDetailsById(userId);
             
             if(currentLoggedUser.MyOwnAgencyId != null)
             {

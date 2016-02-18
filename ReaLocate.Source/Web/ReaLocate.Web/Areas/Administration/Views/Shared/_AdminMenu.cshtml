@@ -5,7 +5,7 @@
     <ul class="dropdown-menu" aria-labelledby="admin-menu">
         @foreach (var adminName in Model)
         {
-            <li class="text-center"><a href="/Administration/@adminName">@adminName</a></li>
+            <li class="text-center"><a href="/Administration/@adminName/@adminName">@adminName</a></li>
         }
     </ul>
 </li>

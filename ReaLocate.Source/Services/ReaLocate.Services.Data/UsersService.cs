@@ -4,6 +4,7 @@
     using ReaLocate.Data.Common;
     using ReaLocate.Data.Models;
     using Web;
+    using System.Linq;
     public class UsersService : IUsersService
     {
         private readonly IRepository<User> users;
@@ -24,7 +25,7 @@
             return stringId;
         }
 
-        public User GetUserDetails(string id)
+        public User GetUserDetailsById(string id)
         {
             return this.users.GetById(id);
         }
@@ -34,6 +35,13 @@
             this.users.Update(user);
 
             this.users.SaveChanges();
+        }
+
+        public IQueryable<User> GetAll()
+        {
+            return this.users
+                 .All()
+                 .OrderByDescending(c => c.FirstName);
         }
     }
 }

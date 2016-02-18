@@ -39,9 +39,7 @@
                    () => this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
                          .To<DetailsRealEstateViewModel>().ToList(),
                    15 * 60);
-            //var estates = this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
-            //             .To<DetailsRealEstateViewModel>().ToList();
-            //List<CoordinateViewModel> coordinates = GetCoordinates(estates);
+
             var coordinates =
                this.Cache.Get(
                    "coordinatesPerPage",

@@ -34,7 +34,7 @@
         public ActionResult CreateAgency()
         {
             var userId = this.User.Identity.GetUserId();
-            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
             var roleCount = currentlyLoggedUser.Roles.Count();
 
             
@@ -67,7 +67,7 @@
         public ActionResult CreateAgency(CreateAgencyViewModel agency)
         {
             var userId = this.User.Identity.GetUserId();
-            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
 
             var dbPaymentDetails = this.Mapper.Map<PaymentDetails>(agency.PaymentDetails);
             //save payment details
@@ -96,7 +96,7 @@
             var dbAgency = this.agenciesService.GetByEncodedId(id);
 
             var userId = this.User.Identity.GetUserId();
-            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
 
             var viewAgency = this.Mapper.Map<DetailsAgencyViewModel>(dbAgency);
             viewAgency.EncodedId = id;

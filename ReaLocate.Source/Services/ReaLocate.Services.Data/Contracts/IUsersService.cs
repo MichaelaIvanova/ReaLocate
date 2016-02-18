@@ -1,13 +1,15 @@
 ﻿namespace ReaLocate.Services.Data
 {
     using ReaLocate.Data.Models;
-
+    using System.Linq;
     public interface IUsersService
     {
-        User GetUserDetails(string id);
+        User GetUserDetailsById(string id);
 
         void Update(User user);
 
         string EncodeId(int id);
+
+        IQueryable<User> GetAll();
     }
 }

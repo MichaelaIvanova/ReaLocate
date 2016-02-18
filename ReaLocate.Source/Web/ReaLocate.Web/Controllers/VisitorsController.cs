@@ -31,7 +31,7 @@ namespace ReaLocate.Web.Controllers
         {
             //check if user is the owner of the add
             var userId = this.User.Identity.GetUserId();
-            this.currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            this.currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
 
             var dbRealEstate = this.realEstatesService.GetByEncodedId(id);
             var visitordDetailsId = (int)dbRealEstate.VisitorsDetailsId;
@@ -51,7 +51,7 @@ namespace ReaLocate.Web.Controllers
 
         public ActionResult VisitorDetails(string id)
         {
-            var dbUser = this.usersService.GetUserDetails(id);
+            var dbUser = this.usersService.GetUserDetailsById(id);
             var userView = this.Mapper.Map<VisitorDetailsViewModel>(dbUser);
 
             return View(userView);

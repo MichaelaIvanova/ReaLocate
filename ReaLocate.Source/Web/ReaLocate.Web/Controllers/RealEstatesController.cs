@@ -38,7 +38,7 @@
         public ActionResult CreateRealEstate()
         {
             var userId = this.User.Identity.GetUserId();
-            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
             var roleCount = currentlyLoggedUser.Roles.Count();
             this.ViewBag.MaxPhotos = 3;
 
@@ -107,7 +107,7 @@
             VisitorsDetails dbVisitors = this.visitorsService.GetById(visitorsId);
 
             var userId = this.User.Identity.GetUserId();
-            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
 
             //update entity
             dbVisitors.AllUsers.Add(currentlyLoggedUser);
@@ -121,7 +121,7 @@
         private RealEstate CreateRealEstate(CreateRealEstateViewModel realEstate, GoogleAddress addressFull)
         {
             var userId = this.User.Identity.GetUserId();
-            var currentlyLoggedUser = this.usersService.GetUserDetails(userId);
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
 
             realEstate.Country = addressFull.Components[3].LongName;
             realEstate.City = addressFull.Components[1].LongName;
