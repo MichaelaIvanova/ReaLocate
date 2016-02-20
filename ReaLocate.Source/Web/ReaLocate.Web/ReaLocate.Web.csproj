@@ -107,6 +107,10 @@
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -224,6 +228,8 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\IRealEstateCreateUtil.cs" />
+    <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
+    <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
     <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
     <Compile Include="Controllers\RealEstateCreateUtil.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
@@ -328,6 +334,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -369,6 +376,7 @@
     <Content Include="Content\KendoUI\fonts\glyphs\KendoUIGlyphs.woff" />
     <Content Include="Content\KendoUI\images\kendoui.ttf" />
     <Content Include="Content\KendoUI\images\kendoui.woff" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -429,6 +437,7 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Invoices\CreateInvoiceRegularUser.cshtml" />
+    <Content Include="Views\Invoices\InvoiceDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

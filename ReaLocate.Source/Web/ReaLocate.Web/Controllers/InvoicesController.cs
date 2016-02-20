@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rotativa;
 
 namespace ReaLocate.Web.Controllers
 {
@@ -47,9 +48,27 @@ namespace ReaLocate.Web.Controllers
             dbInvoice.TotalCost = 10;
 
             var idRaw = this.invoicesService.Add(dbInvoice);
+            var idEncoded = this.invoicesService.EncodeId(idRaw);
 
+            return this.RedirectToAction("InvoiceDetails", "Invoices", new { id = idEncoded });
+            //return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = id });
+        }
 
-            return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = id });
+        [HttpGet]
+        public ActionResult InvoiceDetails(string id)
+        {
+            var dbInvoice = this.invoicesService.GetByEncodedId(id);
+            var viewInvoice = this.Mapper.Map<UserInvoiceViewModel>(dbInvoice);
+            viewInvoice.EncodedId = id;
+            return View(viewInvoice);
+        }
+
+        public ActionResult PrintInvoice(string id)
+        {
+            return new ActionAsPdf( "InvoiceDetails", new { id = id })
+            {
+                FileName = "Invoice.pdf"
+            };
         }
     }
 }
