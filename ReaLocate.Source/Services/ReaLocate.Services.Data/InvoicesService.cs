@@ -1,0 +1,58 @@
+﻿namespace ReaLocate.Services.Data
+{
+    using Contracts;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using ReaLocate.Data.Models;
+    using ReaLocate.Data.Common;
+    using Web;
+    public class InvoicesService : IInvoicesService
+    {
+        private readonly IDbRepository<Invoice> invoices;
+        private readonly IIdentifierProvider identifierProvider;
+
+        public InvoicesService(IDbRepository<Invoice> invoices, IIdentifierProvider identifierProvider)
+        {
+            this.invoices = invoices;
+            this.identifierProvider = identifierProvider;
+        }
+        public int Add(Invoice newInvoice)
+        {
+            this.invoices.Add(newInvoice);
+            this.invoices.Save();
+
+            return newInvoice.Id;
+        }
+
+        public string EncodeId(int id)
+        {
+            var stringId = this.identifierProvider.EncodeId(id);
+
+            return stringId;
+        }
+
+        public IQueryable<Invoice> GetAll()
+        {
+            return this.invoices
+                 .All()
+                 .OrderByDescending(c => c.CreatedOn);
+        }
+
+        public Invoice GetByEncodedId(string id)
+        {
+            var intId = this.identifierProvider.DecodeId(id);
+            var invoice = this.invoices.GetById(intId);
+            return invoice;
+        }
+
+        public Invoice GetById(int id)
+        {
+            return this.invoices
+                .All()
+                .Where(c => c.Id == id).First();
+        }
+    }
+}

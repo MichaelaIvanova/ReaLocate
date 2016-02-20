@@ -70,26 +70,33 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstate, IEnumerable<HttpPostedFileBase> files)
+        public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstateInput, IEnumerable<HttpPostedFileBase> files)
         {
-            var addressFull = this.util.GetRealAddress(realEstate);
+            var addressFull = this.util.GetRealAddress(realEstateInput);
             var address = @addressFull.FormattedAddress;
 
             if (!this.ModelState.IsValid)
             {
-                return this.View(realEstate);
+                return this.View(realEstateInput);
             }
 
             if (address != null)
             {
-                RealEstate dbRealEstate = CreateRealEstate(realEstate, addressFull);
+                RealEstate dbRealEstate = CreateRealEstate(realEstateInput, addressFull);
                 this.realEstatesService.Add(dbRealEstate);
+
                 var realEstateEncodedId = this.realEstatesService.EncodeId(dbRealEstate.Id);
 
                 foreach (var photo in files)
                 {
 
                     this.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
+                }
+
+                // Redirect to payment if Offer is Gold
+                if((int)realEstateInput.OfferType == 1)
+                {
+                    return this.RedirectToAction("CreateInvoiceRegularUser", "Invoices", new { id = realEstateEncodedId });
                 }
 
                 return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });
@@ -125,6 +132,7 @@
 
             realEstate.Country = addressFull.Components[3].LongName;
             realEstate.City = addressFull.Components[1].LongName;
+
             var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
             dbRealEstate.Latitude = addressFull.Coordinates.Latitude;
             dbRealEstate.Longitude = addressFull.Coordinates.Longitude;

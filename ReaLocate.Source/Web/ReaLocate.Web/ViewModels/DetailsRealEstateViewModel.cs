@@ -20,6 +20,8 @@
 
         public string Description { get; set; }
 
+        public OfferType OfferType { get; set; }
+
         public ICollection<Photo> Photos { get; set; }
 
         public double? Latitude { get; set; }

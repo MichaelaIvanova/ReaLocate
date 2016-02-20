@@ -222,7 +222,9 @@
     <Compile Include="Controllers\AgenciesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\IRealEstateCreateUtil.cs" />
+    <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
     <Compile Include="Controllers\RealEstateCreateUtil.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="ViewModels\CoordinateViewModel.cs" />
@@ -426,6 +428,7 @@
     <Content Include="Views\Agencies\AgencyDetails.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Invoices\CreateInvoiceRegularUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

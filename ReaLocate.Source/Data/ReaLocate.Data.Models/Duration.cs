@@ -2,7 +2,7 @@
 {
     public enum Duration
     {
-        OneMonth,
-        ThreeMonths
+        OneMonth=0,
+        ThreeMonths=1
     }
 }

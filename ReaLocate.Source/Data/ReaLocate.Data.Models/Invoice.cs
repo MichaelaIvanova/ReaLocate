@@ -23,8 +23,6 @@
 
         public string About { get; set; }
 
-        public Duration Duration { get; set; }
-
         public string Description { get; set; }
 
         public int Quality { get; set; }
