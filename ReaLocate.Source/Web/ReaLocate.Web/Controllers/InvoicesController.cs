@@ -65,10 +65,11 @@ namespace ReaLocate.Web.Controllers
 
         public ActionResult PrintInvoice(string id)
         {
-            return new ActionAsPdf( "InvoiceDetails", new { id = id })
-            {
-                FileName = "Invoice.pdf"
-            };
+            var dbInvoice = this.invoicesService.GetByEncodedId(id);
+            var viewInvoice = this.Mapper.Map<UserInvoiceViewModel>(dbInvoice);
+            viewInvoice.EncodedId = id;
+
+            return new Rotativa.ViewAsPdf("InvoiceDetails", viewInvoice) { FileName = "Invoice" + id + ".pdf" };
         }
     }
 }
