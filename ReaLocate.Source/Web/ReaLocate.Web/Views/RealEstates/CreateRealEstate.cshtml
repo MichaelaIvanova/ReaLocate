@@ -109,6 +109,17 @@
                 </div>
 
                 <div class="form-group">
+                    @Html.LabelFor(model => model.OfferType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.OfferType, new SelectList(
+                  new List<Object>{
+                       new { value = 0 , text = "Regular"  },
+                       new { value = 1 , text = "Gold" },
+                    }, "value", "text", 0))
+                    </div>
+                </div>
+
+                <div class="form-group">
                     @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })

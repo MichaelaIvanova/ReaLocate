@@ -19,6 +19,8 @@
 
         public decimal? Price { get; set; }
 
+        public OfferType OfferType { get; set; }
+
         public string PublisherId { get { return System.Web.HttpContext.Current.User.Identity.GetUserId(); } }
 
     }
