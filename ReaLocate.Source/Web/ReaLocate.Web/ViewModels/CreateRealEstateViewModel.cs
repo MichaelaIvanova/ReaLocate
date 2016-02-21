@@ -21,6 +21,8 @@
 
         public OfferType OfferType { get; set; }
 
+        public RealEstateType RealEstateType { get; set; }
+
         public string PublisherId { get { return System.Web.HttpContext.Current.User.Identity.GetUserId(); } }
 
     }
