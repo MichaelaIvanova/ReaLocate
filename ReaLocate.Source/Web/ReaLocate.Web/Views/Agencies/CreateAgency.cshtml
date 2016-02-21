@@ -41,7 +41,12 @@
                 @Html.ValidationMessageFor(model => model.PaymentDetails.VatNumber, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+        <div class="form-group">
+            @Html.LabelFor(model => model.HasPackage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.HasPackage, new { htmlAttributes = new { @class = "checkbox checkbox-success" } })
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -26,6 +26,8 @@
 
         public virtual User Owner { get; set; }
 
+        public int? PackageValue { get; set; }
+
         public int? PaymentDetailsId { get; set; }
 
         public virtual PaymentDetails PaymentDetails { get; set; }

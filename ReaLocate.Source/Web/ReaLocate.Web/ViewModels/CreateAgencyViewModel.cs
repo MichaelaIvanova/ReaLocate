@@ -9,6 +9,8 @@
 
         public int? PaymentDetailsId { get; set; }
 
+        public bool HasPackage { get; set; }
+
         public PaymentDetailsViewModel PaymentDetails { get; set; }
     }
 }

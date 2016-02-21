@@ -70,10 +70,14 @@
             var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
 
             var dbPaymentDetails = this.Mapper.Map<PaymentDetails>(agency.PaymentDetails);
-            //save payment details
             this.paymentService.Add(dbPaymentDetails);
 
             var dbAgency = this.Mapper.Map<Agency>(agency);
+            if (agency.HasPackage)
+            {
+                dbAgency.PackageValue = 10;
+            }
+
             dbAgency.OwnerId = userId;
             dbAgency.Owner = currentlyLoggedUser;
 
