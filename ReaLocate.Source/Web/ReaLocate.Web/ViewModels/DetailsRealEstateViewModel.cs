@@ -22,6 +22,8 @@
 
         public OfferType OfferType { get; set; }
 
+        public RealEstateType RealEstateType { get; set; }
+
         public ICollection<Photo> Photos { get; set; }
 
         public double? Latitude { get; set; }
