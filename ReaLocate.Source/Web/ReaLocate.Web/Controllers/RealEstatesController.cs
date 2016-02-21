@@ -16,12 +16,12 @@
     [Authorize]
     public class RealEstatesController : BaseController
     {
-        private readonly IRealEstatesService realEstatesService;
-        private readonly IPhotosService photosService;
-        private readonly IVisitorsService visitorsService;
-        private readonly IUsersService usersService;
-        private readonly IUsersRolesService rolesService;
-        private readonly IRealEstateCreateUtil util;
+        protected readonly IRealEstatesService realEstatesService;
+        protected readonly IPhotosService photosService;
+        protected readonly IVisitorsService visitorsService;
+        protected readonly IUsersService usersService;
+        protected readonly IUsersRolesService rolesService;
+        protected readonly IRealEstateCreateUtil util;
 
         public RealEstatesController(IRealEstatesService realEstatesService, IPhotosService photosService, IVisitorsService visitorsService,
             IUsersService usersService, IUsersRolesService rolesService, IRealEstateCreateUtil util)
@@ -35,7 +35,7 @@
         }
 
         [HttpGet]
-        public ActionResult CreateRealEstate()
+        public virtual ActionResult CreateRealEstate()
         {
             var userId = this.User.Identity.GetUserId();
             var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
@@ -49,12 +49,10 @@
 
                 if (roleType == "AgencyOwner")
                 {
-                    this.ViewBag.MaxPhotos = 5;
-                    return this.RedirectToAction("ErrorAgency", "Error");
+                    return this.RedirectToAction("CreateRealEstate", "AgencyRealEstates");
                 }
                 else if (roleType == "Broker")
                 {
-                    this.ViewBag.MaxPhotos = 5;
                     return this.RedirectToAction("ErrorBroker", "Error");
                 }
                 else if (roleType == "Admin")
@@ -70,7 +68,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstateInput, IEnumerable<HttpPostedFileBase> files)
+        public virtual async Task<ActionResult> CreateRealEstate(CreateRealEstateViewModel realEstateInput, IEnumerable<HttpPostedFileBase> files)
         {
             var addressFull = this.util.GetRealAddress(realEstateInput);
             var address = @addressFull.FormattedAddress;
@@ -93,10 +91,16 @@
                     this.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
                 }
 
-                // Redirect to payment if Offer is Gold
-                if((int)realEstateInput.OfferType == 1)
+                // Redirect to payment if Offer is Gold and is regular user
+                if((int)realEstateInput.OfferType == 1 && dbRealEstate.Publisher.MyOwnAgencyId == null) 
                 {
                     return this.RedirectToAction("CreateInvoiceRegularUser", "Invoices", new { id = realEstateEncodedId });
+                }
+                // if gold Redirect to all invoices of agency
+                else if((int)realEstateInput.OfferType == 1 && dbRealEstate.Publisher.MyOwnAgencyId !=null)
+                {
+                    var agencyEncodedId = this.realEstatesService.EncodeId((int)dbRealEstate.Publisher.MyOwnAgencyId);
+                    return this.RedirectToAction("PreviewAgencyInvoices", "Invoices", new { id = agencyEncodedId});
                 }
 
                 return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });

@@ -1,0 +1,101 @@
+﻿@model ReaLocate.Web.ViewModels.AgencyInvoiceViewModel
+
+@{
+    ViewBag.Title = "InvoiceAgencyDetails";
+}
+
+<h2>InvoiceAgencyDetails</h2>
+
+<div>
+    <h4>AgencyInvoiceViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyRecepient.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.Owner.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyRecepient.Owner.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.Owner.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyRecepient.Owner.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.About)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.PaymentDetails.PaymentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyRecepient.PaymentDetails.PaymentType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.PaymentDetails.VatNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyRecepient.PaymentDetails.VatNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.PaymentDetails.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgencyRecepient.PaymentDetails.Duration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-danger" href="/Invoices/PrintAgencyInvoice/@Model.EncodedId">Print Invoice</a>
+</p>

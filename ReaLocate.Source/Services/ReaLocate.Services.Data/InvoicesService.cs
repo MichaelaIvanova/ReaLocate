@@ -11,10 +11,10 @@
     using Web;
     public class InvoicesService : IInvoicesService
     {
-        private readonly IDbRepository<Invoice> invoices;
+        private readonly IRepository<Invoice> invoices;
         private readonly IIdentifierProvider identifierProvider;
 
-        public InvoicesService(IDbRepository<Invoice> invoices, IIdentifierProvider identifierProvider)
+        public InvoicesService(IRepository<Invoice> invoices, IIdentifierProvider identifierProvider)
         {
             this.invoices = invoices;
             this.identifierProvider = identifierProvider;
@@ -22,7 +22,7 @@
         public int Add(Invoice newInvoice)
         {
             this.invoices.Add(newInvoice);
-            this.invoices.Save();
+            this.invoices.SaveChanges();
 
             return newInvoice.Id;
         }

@@ -20,14 +20,20 @@
         private readonly IAgenciesService agenciesService;
         private readonly IPaymentDetailsService paymentService;
         private readonly IUsersRolesService rolesService;
+        private readonly IInvoicesService invoicesService;
 
         public AgenciesController(IUsersService usersService, IAgenciesService agenciesService,
-            IPaymentDetailsService paymentService, IUsersRolesService rolesService)
+            IPaymentDetailsService paymentService, IUsersRolesService rolesService, IInvoicesService invoicesService)
         {
             this.usersService = usersService;
             this.agenciesService = agenciesService;
             this.paymentService = paymentService;
             this.rolesService = rolesService;
+            this.invoicesService = invoicesService;
+        }
+
+        public AgenciesController()
+        {
         }
 
         [HttpGet]
@@ -37,7 +43,7 @@
             var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
             var roleCount = currentlyLoggedUser.Roles.Count();
 
-            
+
             if (roleCount != 0)
             {
                 var roleId = currentlyLoggedUser.Roles.First().RoleId;
@@ -71,26 +77,39 @@
 
             var dbPaymentDetails = this.Mapper.Map<PaymentDetails>(agency.PaymentDetails);
             this.paymentService.Add(dbPaymentDetails);
-
             var dbAgency = this.Mapper.Map<Agency>(agency);
+            dbAgency.OwnerId = userId;
+            dbAgency.Owner = currentlyLoggedUser;
+
             if (agency.HasPackage)
             {
                 dbAgency.PackageValue = 10;
             }
 
-            dbAgency.OwnerId = userId;
-            dbAgency.Owner = currentlyLoggedUser;
-
             var newAgencyId = this.agenciesService.Add(dbAgency);
-            var encodedId = this.agenciesService.EncodeId(newAgencyId);
-
             currentlyLoggedUser.MyOwnAgencyId = dbAgency.Id;
             currentlyLoggedUser.MyOwnAgency = dbAgency;
-
             var role = this.rolesService.GetRoleByName("AgencyOwner");
             currentlyLoggedUser.Roles.Add(new IdentityUserRole() { RoleId = role.Id });
-
             this.usersService.Update(currentlyLoggedUser);
+
+            if (agency.HasPackage)
+            {
+
+                var dbInvoice = new Invoice
+                {
+                    Quality = 10,
+                    Description ="My agency invoice for package",
+                    About="About real Estate",
+                    TotalCost=20,
+                    UserRecepientId=currentlyLoggedUser.Id,
+                    UserRecepient=currentlyLoggedUser,
+                    AgencyRecepient=this.agenciesService.GetById(newAgencyId),
+                };
+                this.invoicesService.Add(dbInvoice);
+            }
+
+            var encodedId = this.agenciesService.EncodeId(newAgencyId);
 
             return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
         }

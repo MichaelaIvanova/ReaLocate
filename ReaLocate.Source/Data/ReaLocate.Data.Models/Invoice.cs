@@ -15,9 +15,9 @@
         public virtual User UserRecepient { get; set; }
 
         // as company - Agency, can be null
-        //public int? AgencyRecepientId { get; set; }
+        public int? AgencyRecepientId { get; set; }
 
-        //public virtual Agency AgencyRecepient { get; set; }
+        public virtual Agency AgencyRecepient { get; set; }
 
         //  public DateTime CreatedOn { get; set; }
 

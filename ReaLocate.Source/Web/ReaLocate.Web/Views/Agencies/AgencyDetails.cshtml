@@ -55,10 +55,17 @@
         <dd>
             @Html.DisplayFor(model => model.PaymentDetails.VatNumber)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PackageValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PackageValue)
+        </dd>
+
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a class="btn btn-success" href="/Invoices/PreviewAgencyInvoices/@Model.EncodedId">Preview all Invoices</a>
 </p>

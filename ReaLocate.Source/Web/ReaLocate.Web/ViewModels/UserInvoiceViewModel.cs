@@ -3,9 +3,11 @@
     using ReaLocate.Data.Models;
     using ReaLocate.Web.Infrastructure.Mapping;
     using ReaLocate.Web.ViewModels;
-
+    using System;
     public class UserInvoiceViewModel : IMapFrom<Invoice>
     {
+        public int Id { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string EncodedId { get; set; }
         public UserAsInvoiceRecepientViewModel UserRecepient { get; set; }
 

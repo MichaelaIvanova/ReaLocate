@@ -3,12 +3,11 @@ using ReaLocate.Data.Models;
 using ReaLocate.Services.Data;
 using ReaLocate.Services.Data.Contracts;
 using ReaLocate.Web.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Rotativa;
+using ReaLocate.Web.Infrastructure.Mapping;
 
 namespace ReaLocate.Web.Controllers
 {
@@ -17,11 +16,13 @@ namespace ReaLocate.Web.Controllers
     {
         private readonly IUsersService usersService;
         private readonly IInvoicesService invoicesService;
+        private readonly IAgenciesService agencyServices;
 
-        public InvoicesController(IUsersService usersService, IInvoicesService invoicesService)
+        public InvoicesController(IUsersService usersService, IInvoicesService invoicesService, IAgenciesService agencyServices)
         {
             this.usersService = usersService;
             this.invoicesService = invoicesService;
+            this.agencyServices = agencyServices;
         }
 
         [HttpGet]
@@ -51,7 +52,6 @@ namespace ReaLocate.Web.Controllers
             var idEncoded = this.invoicesService.EncodeId(idRaw);
 
             return this.RedirectToAction("InvoiceDetails", "Invoices", new { id = idEncoded });
-            //return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = id });
         }
 
         [HttpGet]
@@ -69,7 +69,44 @@ namespace ReaLocate.Web.Controllers
             var viewInvoice = this.Mapper.Map<UserInvoiceViewModel>(dbInvoice);
             viewInvoice.EncodedId = id;
 
-            return new Rotativa.ViewAsPdf("InvoiceDetails", viewInvoice) { FileName = "Invoice" + id + ".pdf" };
+            return new ViewAsPdf("InvoiceDetails", viewInvoice) { FileName = "Invoice" + id + ".pdf" };
+        }
+
+        [HttpGet]
+        public ActionResult PreviewAgencyInvoices(string id)
+        {
+            var dbAgency = this.agencyServices.GetByEncodedId(id);
+
+            var agencyInvoices = dbAgency.Invoices.AsQueryable()
+                .To<AgencyInvoiceViewModel>()
+                .OrderByDescending(i => i.CreatedOn)
+                .ToList();
+
+            foreach(var item in agencyInvoices)
+            {
+                item.EncodedId = this.agencyServices.EncodeId(item.Id);
+            }
+
+            return this.View(agencyInvoices);
+        }
+
+        [HttpGet]
+        public ActionResult InvoiceAgencyDetails(string id)
+        {
+            var dbInvoice = this.invoicesService.GetByEncodedId(id);
+            var invoiceToDisplay = this.Mapper.Map<AgencyInvoiceViewModel>(dbInvoice);
+            invoiceToDisplay.EncodedId = this.agencyServices.EncodeId(dbInvoice.Id);
+
+            return this.View(invoiceToDisplay);
+        }
+
+        public ActionResult PrintAgencyInvoice(string id)
+        {
+            var dbInvoice = this.invoicesService.GetByEncodedId(id);
+            var viewInvoice = this.Mapper.Map<AgencyInvoiceViewModel>(dbInvoice);
+            viewInvoice.EncodedId = id;
+
+            return new ViewAsPdf("InvoiceAgencyDetails", viewInvoice) { FileName = "Invoice" + id + ".pdf" };
         }
     }
 }

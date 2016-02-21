@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ReaLocate.Web.ViewModels.AgencyInvoiceViewModel>
+
+@{
+    ViewBag.Title = "PreviewAgencyInvoices";
+}
+
+<h2>PreviewAgencyInvoices</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.Owner.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgencyRecepient.Owner.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th>
+            Details
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem =>item.AgencyRecepient.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyRecepient.Owner.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgencyRecepient.Owner.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalCost)
+        </td>
+        <td>
+            <a class="btn btn-success" href="/Invoices/InvoiceAgencyDetails/@item.EncodedId">Print with Details</a>
+        </td>
+    </tr>
+}
+
+</table>

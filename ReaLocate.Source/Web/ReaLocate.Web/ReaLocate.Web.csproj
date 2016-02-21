@@ -224,10 +224,13 @@
     <Compile Include="Areas\Administration\ViewModels\UserAdminPanelViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgenciesController.cs" />
+    <Compile Include="Controllers\AgencyRealEstatesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\IRealEstateCreateUtil.cs" />
+    <Compile Include="ViewModels\AgencyAsInvoiceRecepientViewModel.cs" />
+    <Compile Include="ViewModels\AgencyInvoiceViewModel.cs" />
     <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
     <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
@@ -438,6 +441,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Invoices\CreateInvoiceRegularUser.cshtml" />
     <Content Include="Views\Invoices\InvoiceDetails.cshtml" />
+    <Content Include="Views\AgencyRealEstates\CreateRealEstate.cshtml" />
+    <Content Include="Views\Invoices\PreviewAgencyInvoices.cshtml" />
+    <Content Include="Views\Invoices\InvoiceAgencyDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
