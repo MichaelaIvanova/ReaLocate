@@ -69,12 +69,15 @@
     <a class="btn btn-warning" href=@redirect> See Who viewed this real estate!</a>
 </p>
 
-@foreach (var photo in Model.Photos)
-{
-    <div>
-        <img class="img-responsive" src="@Href(photo.SourceUrl)" />
-    </div>
-}
+<ul class="bxslider clearfix" >
+    @foreach (var photo in Model.Photos)
+    {
+        <div>
+            <img src="@Href(photo.SourceUrl)" />
+        </div>
+    }
+</ul>
+
 @section Map{
 
     <div id="map_canvas" style="height: 300px; width: 300px; border-radius: 200px;"></div>
@@ -88,6 +91,7 @@
 }
 @section scripts {
     <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.5/jquery.bxslider.min.js"></script>
     <section class="scripts">
 
         <script type="text/javascript">
@@ -127,9 +131,26 @@
                 marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
 
             }
-
         </script>
     </section>
+    <script>
+        $(document).ready(function() {
+            'use strict';
+            /***********************************************************
+             * BXSLIDER
+             ***********************************************************/
+            $('.bxslider').bxSlider({
+                auto: true,
+                autoControls: true,
+                pause: 3000,
+                minSlides: 1,
+                maxSlides: 6,
+                slideWidth: 170,
+                slideMargin: 30,
+                responsive: false
+            });
+        })
+    </script>
 }
 
 
