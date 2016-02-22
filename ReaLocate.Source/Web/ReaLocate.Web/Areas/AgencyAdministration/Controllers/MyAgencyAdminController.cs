@@ -15,7 +15,7 @@
         [ChildActionOnly]
         public ActionResult Menu()
         {
-            IEnumerable<string> items = new List<string>() { "RealEstateOffers", "MyAgencyInvoices" };
+            IEnumerable<string> items = new List<string>() { "RealEstatesOffers", "MyAgencyInvoices" };
             return this.PartialView("_AdminMenu", items);
         }
     }

@@ -1,0 +1,33 @@
+﻿@using Kendo.Mvc.UI
+@{
+    var anchor = "/RealEstates/RealEstateDetailsByIntId/#: Id #";
+}
+@(Html.Kendo().Grid<ReaLocate.Web.Areas.AgencyAdministration.ViewModels.AdminRealEstateViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Title);
+          columns.Bound(c => c.Desciption);
+          columns.Bound(c => c.Price);
+          columns.Bound(c => c.Address);
+          columns.Bound(c => c.Country);
+          columns.Bound(c => c.City);
+          columns.Bound(c => c.OfferType);
+          columns.Bound(c => c.RealEstateType);
+          columns.Bound(c => c.CreatedOn).Format("{0:dd/MM/yyyy}"); ;
+          columns.Bound(c => c.Id).ClientTemplate("<a href=" + anchor + ">Preview full offer</a>");
+      })
+      .Pageable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("RealEstatesOffers_Read", "RealEstatesOffers"))
+      )
+)
+
+

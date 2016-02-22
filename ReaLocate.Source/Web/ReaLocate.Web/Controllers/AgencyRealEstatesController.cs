@@ -1,6 +1,7 @@
 ﻿namespace ReaLocate.Web.Controllers
 {
     using Data.Models;
+    using Helpers;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Services.Data;

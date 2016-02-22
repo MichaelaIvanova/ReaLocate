@@ -13,6 +13,7 @@
     using Data.Common;
     using Services.Web;
     using Services.Data.Contracts;
+    using Helpers;
     public static class AutofacConfig
     {
         public static void RegisterAutofac()

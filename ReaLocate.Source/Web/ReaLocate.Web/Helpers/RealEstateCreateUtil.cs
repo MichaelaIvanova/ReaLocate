@@ -1,4 +1,4 @@
-﻿namespace ReaLocate.Web.Controllers
+﻿namespace ReaLocate.Web.Helpers
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace ReaLocate.Web.Controllers
+﻿namespace ReaLocate.Web.Helpers
 {
     using System.Web;
     using Geocoding.Google;

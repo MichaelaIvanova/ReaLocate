@@ -13,6 +13,7 @@
     using Services.Data;
     using System.IO;
     using System;
+    using Helpers;
     [Authorize]
     public class RealEstatesController : BaseController
     {
@@ -91,12 +92,10 @@
                     this.SavePhoto(dbRealEstate, realEstateEncodedId, photo);
                 }
 
-                // Redirect to payment if Offer is Gold and is regular user
                 if((int)realEstateInput.OfferType == 1 && dbRealEstate.Publisher.MyOwnAgencyId == null) 
                 {
                     return this.RedirectToAction("CreateInvoiceRegularUser", "Invoices", new { id = realEstateEncodedId });
                 }
-                // if gold Redirect to all invoices of agency
                 else if((int)realEstateInput.OfferType == 1 && dbRealEstate.Publisher.MyOwnAgencyId !=null)
                 {
                     var agencyEncodedId = this.realEstatesService.EncodeId((int)dbRealEstate.Publisher.MyOwnAgencyId);
@@ -129,6 +128,12 @@
             return this.View(viewRealEstate);
         }
 
+        public ActionResult RealEstateDetailsByIntId(string id)
+        {
+            var encodedId = this.realEstatesService.EncodeId(int.Parse(id));
+            return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = encodedId });
+        }
+
         private RealEstate CreateRealEstate(CreateRealEstateViewModel realEstate, GoogleAddress addressFull)
         {
             var userId = this.User.Identity.GetUserId();
@@ -138,6 +143,12 @@
             realEstate.City = addressFull.Components[1].LongName;
 
             var dbRealEstate = this.Mapper.Map<RealEstate>(realEstate);
+            dbRealEstate.PublisherId = userId;
+            if (currentlyLoggedUser.MyOwnAgencyId !=null)
+            {
+                dbRealEstate.AgencyId = currentlyLoggedUser.MyOwnAgencyId;
+            }
+
             dbRealEstate.Latitude = addressFull.Coordinates.Latitude;
             dbRealEstate.Longitude = addressFull.Coordinates.Longitude;
 
