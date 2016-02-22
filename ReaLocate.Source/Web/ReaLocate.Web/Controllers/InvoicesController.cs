@@ -68,7 +68,7 @@ namespace ReaLocate.Web.Controllers
         {
             var encodedId = this.invoicesService.EncodeId(int.Parse(id));
 
-            return this.RedirectToAction("InvoiceDetails", "Invoices",  new { id = encodedId });
+            return this.RedirectToAction("InvoiceDetails", "Invoices", new { id = encodedId });
         }
 
         public ActionResult PrintInvoice(string id)
@@ -90,7 +90,7 @@ namespace ReaLocate.Web.Controllers
                 .OrderByDescending(i => i.CreatedOn)
                 .ToList();
 
-            foreach(var item in agencyInvoices)
+            foreach (var item in agencyInvoices)
             {
                 item.EncodedId = this.agencyServices.EncodeId(item.Id);
             }
@@ -115,6 +115,37 @@ namespace ReaLocate.Web.Controllers
             viewInvoice.EncodedId = id;
 
             return new ViewAsPdf("InvoiceAgencyDetails", viewInvoice) { FileName = "Invoice" + id + ".pdf" };
+        }
+
+        public ActionResult CreateInvoiceForOneOffer(string id)
+        {
+            var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
+
+            var dbAgency = this.agencyServices.GetByEncodedId(id);
+
+            if (dbAgency.PackageValue > 0)
+            {
+                dbAgency.PackageValue--;
+                this.agencyServices.Update(dbAgency);
+            }
+            else
+            {
+                var dbInvoice = new Invoice
+                {
+                    Quality = 1,
+                    Description = "My agency invoice for single add",
+                    About = "About real Estate sigle add",
+                    TotalCost = 5,
+                    UserRecepientId = currentlyLoggedUser.Id,
+                    UserRecepient = currentlyLoggedUser,
+                    AgencyRecepient = dbAgency,
+                    AgencyRecepientId = dbAgency.Id
+                };
+                this.invoicesService.Add(dbInvoice);
+            }
+
+            return this.RedirectToAction("PreviewAgencyInvoices", "Invoices", new { id = id });
         }
     }
 }

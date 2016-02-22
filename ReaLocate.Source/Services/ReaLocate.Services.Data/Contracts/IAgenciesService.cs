@@ -14,6 +14,9 @@ namespace ReaLocate.Services.Data.Contracts
         int Add(Agency newRealEstate);
 
         Agency GetByEncodedId(string id);
+
         void Delete(Agency agencyFromDb);
+
+        void Update(Agency dbAgency);
     }
 }

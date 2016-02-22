@@ -58,5 +58,12 @@
                 .All()
                 .Where(c => c.Id == id).First();
         }
+
+        public void Update(Agency dbAgency)
+        {
+            this.agencies.Update(dbAgency);
+
+            this.agencies.SaveChanges();
+        }
     }
 }

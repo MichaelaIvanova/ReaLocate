@@ -99,7 +99,7 @@
                 else if((int)realEstateInput.OfferType == 1 && dbRealEstate.Publisher.MyOwnAgencyId !=null)
                 {
                     var agencyEncodedId = this.realEstatesService.EncodeId((int)dbRealEstate.Publisher.MyOwnAgencyId);
-                    return this.RedirectToAction("PreviewAgencyInvoices", "Invoices", new { id = agencyEncodedId});
+                    return this.RedirectToAction("CreateInvoiceForOneOffer", "Invoices", new { id = agencyEncodedId});
                 }
 
                 return this.RedirectToAction("RealEstateDetails", "RealEstates", new { id = realEstateEncodedId });
