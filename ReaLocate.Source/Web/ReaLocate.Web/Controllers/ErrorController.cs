@@ -29,5 +29,17 @@ namespace ReaLocate.Web.Controllers
         {
             return Content(errorMessages[2]);
         }
+
+        public ViewResult NotFound()
+        {
+            Response.StatusCode = 404;  //you may want to set this to 200
+            return View("NotFound");
+        }
+
+        public ViewResult NotAuthorized()
+        {
+            Response.StatusCode = 401;
+            return View("NotAuthorized");
+        }
     }
 }

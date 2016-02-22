@@ -466,6 +466,8 @@
     <Content Include="Views\Shared\_AdminPartialMenu.cshtml" />
     <Content Include="Views\Shared\_AgencyPartialMenu.cshtml" />
     <Content Include="Views\Shared\_NormalUserPartialMenu.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\NotAuthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -474,7 +476,6 @@
     <Folder Include="UploadedFiles\ProfileImages\" />
     <Folder Include="UploadedFiles\RealEstatePhotos\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Error\" />
     <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
