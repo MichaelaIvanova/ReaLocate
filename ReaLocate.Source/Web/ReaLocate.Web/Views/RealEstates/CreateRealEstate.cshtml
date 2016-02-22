@@ -3,74 +3,8 @@
 @{
     ViewBag.Title = "CreateRealEstate";
 }
-<style>
-    #map {
-        height: 50%;
-    }
 
-    .controls {
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-    }
-
-        #pac-input:focus {
-            border-color: #4d90fe;
-        }
-
-    .estate-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-bottom: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-    }
-
-    .pac-input:focus {
-        border-color: #4d90fe;
-    }
-
-    .pac-container {
-        font-family: Roboto;
-    }
-
-    #estate-info {
-        position: absolute;
-        top: 100px;
-    }
-
-    #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-    }
-
-        #type-selector label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
-</style>
-
-<h2>CreateRealEstate</h2>
+<h2>Create Real Estate</h2>
 <div id="type-selector" class="controls" style="display:none">
     <input type="radio" name="type" id="changetype-address" checked="checked">
 </div>
@@ -159,29 +93,20 @@
         </div>
     }
 </div>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        // This example requires the Places library. Include the libraries=places
-        // parameter when you first load the API. For example:
-        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 42.6932, lng: 23.3354 },
                 zoom: 16
             });
-            //map.panBy(350, 10);
 
             var input = (document.getElementById('pac-input'));
             var types = document.getElementById('type-selector');
             var info = document.getElementById('estate-info');
-            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-            // map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
             map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(info);
 
             var autocomplete = new google.maps.places.Autocomplete(input);
@@ -212,7 +137,7 @@
                     map.setCenterWithOffset(place.geometry.location, 0, 0);//set offset
                     map.setZoom(17);  // Why 17? Because it looks good.
                 }
-                marker.setIcon(/** @@type {google.maps.Icon} */({
+                marker.setIcon(({
                     url: place.icon,
                     size: new google.maps.Size(71, 71),
                     origin: new google.maps.Point(0, 0),
@@ -288,10 +213,8 @@
                         alert("Geocode was not successful for the following reason: " + status);
 
                     }
-                    // proceed to submit form
                 })
             }
-            // event.preventDefault();
         });
     </script>
 

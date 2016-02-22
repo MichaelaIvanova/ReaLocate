@@ -124,6 +124,7 @@
             this.visitorsService.Update(dbVisitors);
 
             DetailsRealEstateViewModel viewRealEstate = this.Mapper.Map<DetailsRealEstateViewModel>(dbRealEstate);
+            viewRealEstate.UserId = dbRealEstate.PublisherId;
             viewRealEstate.EncodedId = id;
             return this.View(viewRealEstate);
         }
