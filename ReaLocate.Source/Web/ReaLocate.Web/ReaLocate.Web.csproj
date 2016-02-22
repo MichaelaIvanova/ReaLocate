@@ -228,6 +228,8 @@
     <Compile Include="Areas\Administration\ViewModels\InvoiceAdminPanelViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserAdminInputViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserAdminPanelViewModel.cs" />
+    <Compile Include="Areas\AgencyAdministration\AgencyAdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\AgencyAdministration\Controllers\MyAgencyAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgenciesController.cs" />
     <Compile Include="Controllers\AgencyRealEstatesController.cs" />
@@ -389,6 +391,9 @@
     <Content Include="Areas\Administration\Views\RealEstateAdmin\RealEstateAdmin.cshtml" />
     <Content Include="Areas\Administration\Views\AgenciesAdmin\AgenciesAdmin.cshtml" />
     <Content Include="Areas\Administration\Views\InvoicesAdmin\InvoicesAdmin.cshtml" />
+    <Content Include="Areas\AgencyAdministration\Views\web.config" />
+    <Content Include="Areas\AgencyAdministration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\AgencyAdministration\Views\Shared\_AdminMenu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -453,15 +458,19 @@
     <Content Include="Views\AgencyRealEstates\CreateRealEstate.cshtml" />
     <Content Include="Views\Invoices\PreviewAgencyInvoices.cshtml" />
     <Content Include="Views\Invoices\InvoiceAgencyDetails.cshtml" />
+    <Content Include="Views\Shared\_AdminPartialMenu.cshtml" />
+    <Content Include="Views\Shared\_AgencyPartialMenu.cshtml" />
+    <Content Include="Views\Shared\_NormalUserPartialMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administration\Views\Admin\" />
+    <Folder Include="Areas\AgencyAdministration\Models\" />
+    <Folder Include="Areas\AgencyAdministration\Views\MyAgencyAdmin\" />
     <Folder Include="UploadedFiles\ProfileImages\" />
     <Folder Include="UploadedFiles\RealEstatePhotos\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Error\" />
-    <Folder Include="Views\Grid\" />
     <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>

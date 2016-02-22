@@ -1,0 +1,5 @@
+﻿@if (!User.IsInRole("AgencyOwner") && !User.IsInRole("Admin"))
+{
+    <li>@Html.ActionLink("Create RealEstate", "CreateRealEstate", "RealEstates", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Create Agency", "CreateAgency", "Agencies", new { area = "" }, null)</li>
+}

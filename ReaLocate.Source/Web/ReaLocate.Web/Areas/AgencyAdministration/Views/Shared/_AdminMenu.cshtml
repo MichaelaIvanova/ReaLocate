@@ -1,0 +1,11 @@
+﻿@model IEnumerable<string>
+
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="admin-menu">My Agency Administration<span class="caret"></span></a>
+    <ul class="dropdown-menu" aria-labelledby="admin-menu">
+        @foreach (var adminName in Model)
+        {
+            <li class="text-center"><a href="/AgencyAdministration/@adminName/@adminName">@adminName</a></li>
+        }
+    </ul>
+</li>

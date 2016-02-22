@@ -26,12 +26,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Chat", "Chat", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Create RealEstate", "CreateRealEstate", "RealEstates", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Create Agency","CreateAgency","Agencies", new { area = "" }, null)</li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.Action("Menu", "Admin", routeValues: new { Area = "Administration", @class = "navbar-brand" })
-                    }
+                    @Html.Partial("_AdminPartialMenu")
+                    @Html.Partial("_AgencyPartialMenu")
+                    @Html.Partial("_NormalUserPartialMenu")
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -1,0 +1,5 @@
+﻿@if (User.IsInRole("AgencyOwner"))
+{
+    @Html.Action("Menu", "MyAgencyAdmin", routeValues: new { Area = "AgencyAdministration", @class = "navbar-brand" })
+    <li>@Html.ActionLink("Create RealEstate", "CreateRealEstate", "RealEstates", new { area = "" }, null)</li>
+}
