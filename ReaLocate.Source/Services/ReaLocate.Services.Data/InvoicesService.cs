@@ -19,6 +19,7 @@
             this.invoices = invoices;
             this.identifierProvider = identifierProvider;
         }
+
         public int Add(Invoice newInvoice)
         {
             this.invoices.Add(newInvoice);
@@ -37,8 +38,7 @@
         public IQueryable<Invoice> GetAll()
         {
             return this.invoices
-                 .All()
-                 .OrderByDescending(c => c.CreatedOn);
+                 .All();
         }
 
         public Invoice GetByEncodedId(string id)

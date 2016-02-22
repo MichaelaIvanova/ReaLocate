@@ -1,0 +1,28 @@
+﻿@using Kendo.Mvc.UI
+@{
+    var anchor = "/Invoices/InvoiceDetailsByIntId/#: Id #";
+}
+@(Html.Kendo().Grid<ReaLocate.Web.Areas.Administration.ViewModels.InvoiceAdminPanelViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Quality);
+          columns.Bound(c => c.TotalCost);
+          columns.Bound(c => c.CreatedOn).Format("{0:dd/MM/yyyy}");
+          columns.Bound(c => c.Id).ClientTemplate("<a href=" + anchor + ">Print Preview</a>");
+      })
+      .Pageable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("MyAgencyInvoices_Read", "MyAgencyInvoices"))
+      )
+)
+
+
+
