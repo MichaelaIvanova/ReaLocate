@@ -16,5 +16,9 @@
         int Add(RealEstate newRealEstate);
 
         RealEstate GetByEncodedId(string id);
+
+        void Update(RealEstate realEstate);
+
+        void Delete(RealEstate realEstateFromDb);
     }
 }

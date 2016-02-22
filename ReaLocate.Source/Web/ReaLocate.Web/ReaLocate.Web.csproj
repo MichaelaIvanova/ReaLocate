@@ -219,7 +219,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\RealEstateAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Administration\ViewModels\AdminRealEstateViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserAdminInputViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserAdminPanelViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -380,6 +382,7 @@
     <Content Include="Content\KendoUI\images\kendoui.ttf" />
     <Content Include="Content\KendoUI\images\kendoui.woff" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Administration\Views\RealEstateAdmin\RealEstateAdmin.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -452,6 +455,7 @@
     <Folder Include="UploadedFiles\RealEstatePhotos\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Error\" />
+    <Folder Include="Views\Grid\" />
     <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>

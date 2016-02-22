@@ -12,10 +12,10 @@
 
     public class RealEstatesService : IRealEstatesService
     {
-        private readonly IDbRepository<RealEstate> realEstates;
+        private readonly IRepository<RealEstate> realEstates;
         private readonly IIdentifierProvider identifierProvider;
 
-        public RealEstatesService(IDbRepository<RealEstate> realEstates, IIdentifierProvider identifierProvider)
+        public RealEstatesService(IRepository<RealEstate> realEstates, IIdentifierProvider identifierProvider)
         {
             this.realEstates = realEstates;
             this.identifierProvider = identifierProvider;
@@ -25,7 +25,7 @@
         {
 
             this.realEstates.Add(newRealEstate);
-            this.realEstates.Save();
+            this.realEstates.SaveChanges();
 
             return newRealEstate.Id;
         }
@@ -62,6 +62,18 @@
             return this.realEstates
                  .All()
                  .OrderByDescending(c => c.CreatedOn);
+        }
+
+        public void Update(RealEstate realEstate)
+        {
+            this.realEstates.Update(realEstate);
+            this.realEstates.SaveChanges();
+        }
+
+        public void Delete(RealEstate realEstateFromDb)
+        {
+            this.realEstates.Delete(realEstateFromDb);
+
         }
     }
 }
