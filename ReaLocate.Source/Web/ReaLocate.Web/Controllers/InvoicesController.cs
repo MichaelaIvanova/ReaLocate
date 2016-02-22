@@ -63,6 +63,14 @@ namespace ReaLocate.Web.Controllers
             return View(viewInvoice);
         }
 
+        [HttpGet]
+        public ActionResult InvoiceDetailsByIntId(string id)
+        {
+            var encodedId = this.invoicesService.EncodeId(int.Parse(id));
+
+            return this.RedirectToAction("InvoiceDetails", "Invoices",  new { id = encodedId });
+        }
+
         public ActionResult PrintInvoice(string id)
         {
             var dbInvoice = this.invoicesService.GetByEncodedId(id);

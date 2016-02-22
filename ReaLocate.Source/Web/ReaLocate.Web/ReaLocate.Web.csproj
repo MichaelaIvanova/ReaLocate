@@ -220,10 +220,12 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\AgenciesAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\InvoicesAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\RealEstateAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
     <Compile Include="Areas\Administration\ViewModels\AdminRealEstateViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\AgencyAdminPanelViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\InvoiceAdminPanelViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserAdminInputViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\UserAdminPanelViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -232,13 +234,13 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
-    <Compile Include="Controllers\IRealEstateCreateUtil.cs" />
+    <Compile Include="Helpers\IRealEstateCreateUtil.cs" />
     <Compile Include="ViewModels\AgencyAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\AgencyInvoiceViewModel.cs" />
     <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
     <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
-    <Compile Include="Controllers\RealEstateCreateUtil.cs" />
+    <Compile Include="Helpers\RealEstateCreateUtil.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="ViewModels\CoordinateViewModel.cs" />
     <Compile Include="ViewModels\CreateAgencyViewModel.cs" />
@@ -386,6 +388,7 @@
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\Administration\Views\RealEstateAdmin\RealEstateAdmin.cshtml" />
     <Content Include="Areas\Administration\Views\AgenciesAdmin\AgenciesAdmin.cshtml" />
+    <Content Include="Areas\Administration\Views\InvoicesAdmin\InvoicesAdmin.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
