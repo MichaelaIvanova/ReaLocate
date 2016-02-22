@@ -18,7 +18,7 @@
             this.realEstateService = realEstateService;
         }
 
-        public ActionResult Index(string id)
+        public ActionResult GetAllRealEstatesList(string id)
         {
             int page;
             if (id == string.Empty || id == null)
@@ -58,12 +58,20 @@
             return this.View(indexView);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(CreateRealEstateViewModel realEstate)
+        [HttpGet]
+        public ActionResult Index()
         {
-            return this.View();
+            var latest20 =
+               this.Cache.Get(
+                   "latest20RealEstates",
+                   () => this.realEstateService.GetAll()
+                                     .OrderByDescending(r => r.CreatedOn)
+                                     .Take(20)
+                                     .To<DetailsRealEstateViewModel>()
+                                     .ToList(),
+                   15 * 60);
+
+            return this.View(latest20);
         }
 
         public ActionResult Chat()

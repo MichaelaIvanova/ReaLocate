@@ -24,8 +24,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Chat", "Chat", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("All Offers", "GetAllRealEstatesList","Home", new { area = "" }, null)</li>
                     @Html.Partial("_AdminPartialMenu")
                     @Html.Partial("_AgencyPartialMenu")
                     @Html.Partial("_NormalUserPartialMenu")
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" id="unique-realocate">
         <br />
         <div id="sidebar">
             @RenderSection("SideBar", required: false)

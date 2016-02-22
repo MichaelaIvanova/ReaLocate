@@ -1,0 +1,28 @@
+﻿@model ReaLocate.Web.ViewModels.DetailsRealEstateViewModel
+
+
+<div class="property-item property-sale col-sm-6 col-md-3 isotope-item" style="float:right">
+    <div class="property-box">
+        <div class="property-box-inner">
+            <h3 class="property-box-title">@Model.City</h3>
+            <h5 class="property-box-subtitle .giveMeEllipsis" >@Model.Address</h5>
+
+            <div class="property-box-label">@Model.RealEstateType</div>
+            <div class="property-box-picture">
+                @if (Model.Price != null)
+                {
+                    <div class="property-box-price">@Model.Price</div>
+                }
+                @if (Model.Photos.Count != 0)
+                {
+                    <div class="property-box-picture-inner">
+                        <a class="property-box-picture-target">
+                            <img src=@Model.Photos.First().SourceUrl alt="">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

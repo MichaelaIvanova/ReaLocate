@@ -460,7 +460,7 @@
     <Content Include="Views\Agencies\CreateAgency.cshtml" />
     <Content Include="Views\Agencies\AgencyDetails.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\GetAllRealEstatesList.cshtml" />
     <Content Include="Views\Invoices\CreateInvoiceRegularUser.cshtml" />
     <Content Include="Views\Invoices\InvoiceDetails.cshtml" />
     <Content Include="Views\AgencyRealEstates\CreateRealEstate.cshtml" />
@@ -474,6 +474,8 @@
     <Content Include="Views\InviteBrokers\InviteBrokers.cshtml" />
     <Content Include="Views\Error\ErrorUserAlredyIsInAgency.cshtml" />
     <Content Include="Views\InviteBrokers\GetAllBrokersByAgency.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_RealEstateTilePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
