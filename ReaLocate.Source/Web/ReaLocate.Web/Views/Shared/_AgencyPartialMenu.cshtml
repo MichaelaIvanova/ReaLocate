@@ -2,4 +2,5 @@
 {
     @Html.Action("Menu", "MyAgencyAdmin", routeValues: new { Area = "AgencyAdministration", @class = "navbar-brand" })
     <li>@Html.ActionLink("Create RealEstate", "CreateRealEstate", "RealEstates", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("My Agency Profile", "GetMyAgency", "Agencies", new { area = "" }, null)</li>
 }

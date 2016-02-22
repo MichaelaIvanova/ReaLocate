@@ -114,6 +114,17 @@
             return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
         }
 
+        public ActionResult GetMyAgency()
+        {
+            var userId = this.User.Identity.GetUserId();
+            var currentlyLoggedUser = this.usersService.GetUserDetailsById(userId);
+
+            var dbAgency = this.agenciesService.GetById((int)currentlyLoggedUser.MyOwnAgencyId);
+            var encodedId = this.agenciesService.EncodeId(dbAgency.Id);
+
+            return this.RedirectToAction("AgencyDetails", "Agencies", new { id = encodedId });
+        }
+
         public ActionResult AgencyDetails(string id)
         {
             var dbAgency = this.agenciesService.GetByEncodedId(id);
