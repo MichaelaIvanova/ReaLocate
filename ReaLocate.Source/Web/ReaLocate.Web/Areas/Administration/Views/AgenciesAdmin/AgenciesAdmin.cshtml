@@ -1,0 +1,27 @@
+﻿@using Kendo.Mvc.UI
+@(Html.Kendo().Grid<ReaLocate.Web.Areas.Administration.ViewModels.AgencyAdminPanelViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Name);
+          columns.Bound(c => c.Owner.FirstName);
+          columns.Bound(c => c.Owner.LastName);
+          columns.Bound(c => c.PackageValue);
+          columns.Command(command => { command.Destroy(); }).Width(180);
+      })
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Pageable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("Agencies_Read", "AgenciesAdmin"))
+          .Destroy(destroy => destroy.Action("Agencies_Destroy", "AgenciesAdmin"))
+      )
+)
+
+

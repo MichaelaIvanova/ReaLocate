@@ -11,10 +11,10 @@
     using Web;
     public class AgenciesService : IAgenciesService
     {
-        private readonly IDbRepository<Agency> agencies;
+        private readonly IRepository<Agency> agencies;
         private readonly IIdentifierProvider identifierProvider;
 
-        public AgenciesService(IDbRepository<Agency> agencies, IIdentifierProvider identifierProvider)
+        public AgenciesService(IRepository<Agency> agencies, IIdentifierProvider identifierProvider)
         {
             this.agencies = agencies;
             this.identifierProvider = identifierProvider;
@@ -23,9 +23,14 @@
         public int Add(Agency newAgency)
         {
             this.agencies.Add(newAgency);
-            this.agencies.Save();
+            this.agencies.SaveChanges();
 
             return newAgency.Id;
+        }
+
+        public void Delete(Agency agencyFromDb)
+        {
+            this.agencies.Delete(agencyFromDb);
         }
 
         public string EncodeId(int id)
@@ -35,9 +40,9 @@
             return stringId;
         }
 
-        public IQueryable<Agency> GetAll(int skip, int take)
+        public IQueryable<Agency> GetAll()
         {
-            throw new NotImplementedException();
+           return this.agencies.All();
         }
 
         public Agency GetByEncodedId(string id)

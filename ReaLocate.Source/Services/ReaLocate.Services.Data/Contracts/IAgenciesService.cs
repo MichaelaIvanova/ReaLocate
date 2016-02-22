@@ -7,12 +7,13 @@ namespace ReaLocate.Services.Data.Contracts
     {
         string EncodeId(int id);
 
-        IQueryable<Agency> GetAll(int skip, int take);
+        IQueryable<Agency> GetAll();
 
         Agency GetById(int id);
 
         int Add(Agency newRealEstate);
 
         Agency GetByEncodedId(string id);
+        void Delete(Agency agencyFromDb);
     }
 }
