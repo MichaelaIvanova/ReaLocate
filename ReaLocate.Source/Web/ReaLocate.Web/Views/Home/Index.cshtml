@@ -6,8 +6,40 @@
 
 <h2>Latest Properties</h2>
 
-@foreach (var item in Model)
-{
-    @Html.Partial("_RealEstateTilePartialView",item)
-}
+    <ul class="properties-filter" >
+        <li class=""><a href="#" data-filter="*"><span>All</span></a></li>
+        <li class=""><a href="#" data-filter=".property-ForReantAndForSale"><span>Featured</span></a></li>
+        <li class="selected"><a href="#" data-filter=".property-ForRent"><span>Rent</span></a></li>
+        <li><a href="#" data-filter=".property-ForSale"><span>Sale</span></a></li>
+    </ul>
+    <div class="properties-items isotope">
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_RealEstateTilePartialView", item)
+        }
+    </div>
 
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+
+    <script>
+        $(window).load(function () {
+            /***********************************************************
+            * ISOTOPE
+            ***********************************************************/
+            var isotope_works = $('.properties-items');
+            isotope_works.isotope({
+                'itemSelector': '.property-item'
+            });
+
+            $('.properties-filter a').click(function () {
+                $(this).parent().parent().find('li').removeClass('selected');
+                $(this).parent().addClass('selected');
+
+                var selector = $(this).attr('data-filter');
+                isotope_works.isotope({ filter: selector });
+                return false;
+            });
+        });
+    </script>
+}
