@@ -9,6 +9,7 @@
 <style>
     #map_canvas img {
         max-width: none;
+        float:right
     }
 </style>
 
@@ -19,6 +20,10 @@
         width: 300px;
         -webkit-user-select: none;
         background-color: white;
+    }
+
+    table{
+        float:right
     }
 </style>
 
@@ -97,6 +102,13 @@
         }
     </ul>
 </nav>
+
+@section SideBar{
+
+    <p>If You want go see your messages</p>
+    <a class="btn btn-success" href="/Visitors/VisitorDetails/@Model.UserId">View Official Profile and Chat</a>
+
+}
 
 <!-- Enclose the Javascript in a "section" so that it is rendered in the correct order after scripts have been loaded etc -->
 @section scripts {

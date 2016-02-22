@@ -12,5 +12,7 @@ namespace ReaLocate.Web.ViewModels
         public IEnumerable<DetailsRealEstateViewModel> Estates { get; set; }
         public int TotalPages { get; internal set; }
         public int CurrentPage { get; internal set; }
+
+        public string UserId { get; set; }
     }
 }

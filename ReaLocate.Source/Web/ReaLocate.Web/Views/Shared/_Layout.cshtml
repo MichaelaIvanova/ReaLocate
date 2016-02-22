@@ -35,6 +35,10 @@
         </div>
     </div>
     <div class="container body-content">
+        <br />
+        <div id="sidebar">
+            @RenderSection("SideBar", required: false)
+        </div>
         @RenderBody()
         <hr />
         <footer>

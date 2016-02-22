@@ -7,6 +7,7 @@
     using ViewModels;
     using Services.Data.Contracts;
     using System;
+    using Microsoft.AspNet.Identity;
     public class HomeController : BaseController
     {
         private const int ItemsPerPage = 10;
@@ -51,8 +52,9 @@
                 MapsCoordinates = coordinates,
                 Estates = estates,
                 TotalPages = totalPages,
-                CurrentPage = page
-            };
+                CurrentPage = page,
+                UserId = this.User.Identity.GetUserId()
+        };
             return this.View(indexView);
         }
 
