@@ -238,10 +238,12 @@
     <Compile Include="Controllers\AgencyRealEstatesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\InviteBrokersController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Helpers\IRealEstateCreateUtil.cs" />
     <Compile Include="ViewModels\AgencyAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\AgencyInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\BrokerInputViewModel.cs" />
     <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
     <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
@@ -468,6 +470,7 @@
     <Content Include="Views\Shared\_NormalUserPartialMenu.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\NotAuthorized.cshtml" />
+    <Content Include="Views\InviteBrokers\InviteBrokers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
