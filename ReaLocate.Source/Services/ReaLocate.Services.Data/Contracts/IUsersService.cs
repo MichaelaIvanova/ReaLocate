@@ -11,5 +11,9 @@
         string EncodeId(int id);
 
         IQueryable<User> GetAll();
+
+        void Delete(User user);
+
+        void Add(User user);
     }
 }

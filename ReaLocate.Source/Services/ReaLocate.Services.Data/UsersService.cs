@@ -43,5 +43,16 @@
                  .All()
                  .OrderByDescending(c => c.FirstName);
         }
+
+        public void Delete(User user)
+        {
+            this.users.Delete(user);
+        }
+
+        public void Add(User user)
+        {
+            this.users.Add(user);
+            this.users.SaveChanges();
+        }
     }
 }
