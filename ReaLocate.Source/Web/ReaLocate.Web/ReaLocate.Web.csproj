@@ -244,6 +244,7 @@
     <Compile Include="ViewModels\AgencyAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\AgencyInvoiceViewModel.cs" />
     <Compile Include="ViewModels\BrokerInputViewModel.cs" />
+    <Compile Include="ViewModels\BrokerViewModel.cs" />
     <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
     <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
@@ -471,6 +472,8 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\NotAuthorized.cshtml" />
     <Content Include="Views\InviteBrokers\InviteBrokers.cshtml" />
+    <Content Include="Views\Error\ErrorUserAlredyIsInAgency.cshtml" />
+    <Content Include="Views\InviteBrokers\GetAllBrokersByAgency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

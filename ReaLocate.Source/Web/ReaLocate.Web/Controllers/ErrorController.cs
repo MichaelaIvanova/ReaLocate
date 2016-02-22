@@ -41,5 +41,11 @@ namespace ReaLocate.Web.Controllers
             Response.StatusCode = 401;
             return View("NotAuthorized");
         }
+
+        public ViewResult ErrorUserAlredyIsInAgency()
+        {
+            Response.StatusCode = 404;  //you may want to set this to 200
+            return View("ErrorUserAlredyIsInAgency");
+        }
     }
 }

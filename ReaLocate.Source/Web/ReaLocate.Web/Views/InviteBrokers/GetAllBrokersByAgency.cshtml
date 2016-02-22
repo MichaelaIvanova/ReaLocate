@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ReaLocate.Web.ViewModels.BrokerViewModel>
+
+@{
+    ViewBag.Title = "GetAllBrokersByAgency";
+}
+
+<h2>GetAllBrokersByAgency</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilePicturePath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            <img src="@Href(item.ProfilePicturePath)" width="50" />
+        </td>
+        <td>
+            @{
+                var redirect = "/Visitors/VisitorDetails/" + item.Id;
+            }
+            <a href=@redirect>Details ad Send Message</a>
+        </td>
+    </tr>
+}
+
+</table>
