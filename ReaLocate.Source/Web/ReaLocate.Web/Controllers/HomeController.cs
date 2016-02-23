@@ -73,6 +73,7 @@
                                      .OrderByDescending(r => r.CreatedOn)
                                      .To<DetailsRealEstateViewModel>()
                                      .ToList();
+
             }
             else
             {
@@ -85,6 +86,11 @@
                                      .To<DetailsRealEstateViewModel>()
                                      .ToList(),
                    15 * 60);
+            }
+
+            foreach(var realEstate in result)
+            {
+                realEstate.EncodedId = this.realEstateService.EncodeId(realEstate.Id);
             }
 
             return this.View(result);
