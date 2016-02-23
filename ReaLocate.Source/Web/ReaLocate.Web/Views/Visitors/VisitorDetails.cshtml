@@ -5,6 +5,10 @@
 <h2>VisitorDetails</h2>
 <div>
     <h4>VisitorDetailsViewModel</h4>
+    @if (Model.IsOnline)
+    {
+       <div id="blinkElement" class="btn btn-success">Online</div>
+    }
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,6 +45,9 @@
     <ul id="discussion"></ul>
 </div>
 @section scripts {
+    <script>
+        $('#blinkElement').fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100);
+    </script>
     <!--Script references. -->
     <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
     <!--Reference the SignalR library. -->

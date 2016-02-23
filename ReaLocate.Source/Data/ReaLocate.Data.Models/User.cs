@@ -20,6 +20,8 @@
 
         public virtual ICollection<Invoice> Invoices { get { return this.invoices; } set { this.invoices = value; } }
 
+        public bool IsOnline { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

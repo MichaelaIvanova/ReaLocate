@@ -29,7 +29,7 @@
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,  IUsersRolesService rolesService)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUsersRolesService rolesService)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -83,6 +83,7 @@
                 return this.View(model);
             }
 
+            model.IsOnline = true;
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result =
@@ -95,6 +96,10 @@
             switch (result)
             {
                 case SignInStatus.Success:
+                   var t = this.UserManager.Find(model.UserName,model.Password);
+                    t.IsOnline = true;
+                    this.UserManager.Update(t);
+
                     return this.RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
@@ -453,6 +458,10 @@
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            var user = this.UserManager.FindById(this.User.Identity.GetUserId());
+            user.IsOnline = false;
+            this.UserManager.Update(user);
+
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction("Index", "Home");
         }
