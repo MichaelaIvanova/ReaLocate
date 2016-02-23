@@ -34,18 +34,10 @@
             var totalPages = (int)Math.Ceiling(allItemsCount / (decimal)ItemsPerPage);
             var itemsToSkip = (page - 1) * ItemsPerPage;
 
-            var estates =
-               this.Cache.Get(
-                   "realEstatePerPage",
-                   () => this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
-                         .To<DetailsRealEstateViewModel>().ToList(),
-                   15 * 60);
+            var estates = this.realEstateService.GetAllForPaging(itemsToSkip, ItemsPerPage)
+                         .To<DetailsRealEstateViewModel>().ToList();
 
-            var coordinates =
-               this.Cache.Get(
-                   "coordinatesPerPage",
-                   () => GetCoordinates(estates),
-                   15 * 60);
+            var coordinates = this.GetCoordinates(estates);
 
             var indexView = new IndexMapAndGridViewModel
             {
@@ -88,7 +80,7 @@
                    15 * 60);
             }
 
-            foreach(var realEstate in result)
+            foreach (var realEstate in result)
             {
                 realEstate.EncodedId = this.realEstateService.EncodeId(realEstate.Id);
             }

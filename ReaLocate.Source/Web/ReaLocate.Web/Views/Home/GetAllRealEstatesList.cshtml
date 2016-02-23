@@ -50,7 +50,7 @@
         @if (Model.CurrentPage > 1)
         {
             <li>
-                <a href="/Home/Index/@(Model.CurrentPage-1)" aria-label="Previous">
+                <a href="/Home/GetAllRealEstatesList/@(Model.CurrentPage-1)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -62,12 +62,12 @@
             {
                 className = "active";
             }
-            <li class="@className"><a href="/Home/Index/@(Model.CurrentPage+1)">@i</a></li>
+            <li class="@className"><a href="/Home/GetAllRealEstatesList/@i">@i</a></li>
         }
         @if (Model.CurrentPage < Model.TotalPages)
         {
             <li>
-                <a href="/Beers/All/@(Model.CurrentPage+1)" aria-label="Next">
+                <a href="/Home/GetAllRealEstatesList/@(Model.CurrentPage+1)" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -83,7 +83,7 @@
 @section SideBar{
 
     <p>If You want go see your messages</p>
-    <a class="btn btn-success" href="/Visitors/VisitorDetails/@Model.UserId">View Official Profile and Chat</a>
+    <a class="btn btn-warning" href="/Visitors/VisitorDetails/@Model.UserId">View Official<br />Profile and Chat</a>
 
 }
 

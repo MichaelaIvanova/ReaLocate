@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
+<br />
 <h2>Latest Properties</h2>
 <ul class="properties-filter">
     <li class=""><a href="#" data-filter="*"><span>All</span></a></li>
@@ -20,7 +21,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <p>If You want go see your messages</p>
-        <a class="btn btn-success" href="/Visitors/VisitorDetails/@ViewContext.HttpContext.User.Identity.GetUserId()">View Official <br /> Profile and Chat</a>
+        <a class="btn btn-warning" href="/Visitors/VisitorDetails/@ViewContext.HttpContext.User.Identity.GetUserId()">View Official <br /> Profile and Chat</a>
     }
 }
 
