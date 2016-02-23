@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ReaLocate.Web.ViewModels.DetailsRealEstateViewModel>
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<ReaLocate.Web.ViewModels.DetailsRealEstateViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,46 +7,49 @@
 
 <h2>Latest Properties</h2>
 
-    <ul class="properties-filter" >
-        <li class=""><a href="#" data-filter="*"><span>All</span></a></li>
-        <li class=""><a href="#" data-filter=".property-ForReantAndForSale"><span>Featured</span></a></li>
-        <li class="selected"><a href="#" data-filter=".property-ForRent"><span>Rent</span></a></li>
-        <li><a href="#" data-filter=".property-ForSale"><span>Sale</span></a></li>
-    </ul>
-    <div class="properties-items isotope">
-        @foreach (var item in Model)
-        {
-            @Html.Partial("_RealEstateTilePartialView", item)
-        }
-    </div>
-@section Map{
-
-    <div id="map_canvas" style="height: 500px;"></div>
-}
+<ul class="properties-filter">
+    <li class=""><a href="#" data-filter="*"><span>All</span></a></li>
+    <li class=""><a href="#" data-filter=".property-ForReantAndForSale"><span>Featured</span></a></li>
+    <li class="selected"><a href="#" data-filter=".property-ForRent"><span>Rent</span></a></li>
+    <li><a href="#" data-filter=".property-ForSale"><span>Sale</span></a></li>
+</ul>
+<div class="properties-items isotope">
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_RealEstateTilePartialView", item)
+    }
+</div>
 
 @section SideBar{
-    <div class="map-navigation-wrapper">
-    <div class="map-navigation">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>If You want go see your messages</p>
+        <a class="btn btn-success" href="/Visitors/VisitorDetails/@ViewContext.HttpContext.User.Identity.GetUserId()">View Official <br /> Profile and Chat</a>
+    }
+}
+
+
+@section Map{
+
+<div id="map-navigation-misha" class="map-navigation">
         <form method="post" action="?" class="clearfix">
             <div class="form-group col-sm-12">
                 <label>Country</label>
-                <div class="select-wrapper">
-                    <input id="select-country" class="form-control" />
-                </div><!-- /.select-wrapper -->
+                <input id="select-country" class="form-control" />
             </div><!-- /.form-group -->
             <div class="form-group col-sm-12">
-                <label>Location</label>
-                <div class="select-wrapper">
-                    <input id="select-location" class="form-control" />
-                </div><!-- /.select-wrapper -->
+                <label>City</label>
+                <input id="select-city" class="form-control" />
             </div><!-- /.form-group -->
             <div class="form-group col-sm-12">
                 <input type="submit" class="btn btn-primary btn-inversed btn-block" value="Filter Properties">
             </div><!-- /.form-group -->
         </form>
-    </div>
 </div>
-    }
+
+    <div id="map_canvas" style="height: 500px;"></div>
+}
 
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
@@ -70,9 +74,9 @@
             });
         });
     </script>
-<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
-<section class="scripts">
-    <script type="text/javascript">
+    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <section class="scripts">
+        <script type="text/javascript">
 
             $(document).ready(function () {
                 Initialize();
@@ -87,8 +91,12 @@
                 };
 
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-                var myLatlng = new google.maps.LatLng(53.40091, -2.994464);
+                var info = document.getElementById('map-navigation-misha');
+                console.log(info);
 
+                map.controls[google.maps.ControlPosition.RIGHT_TOP].push(info);
+
+                var myLatlng = new google.maps.LatLng(53.40091, -2.994464);
                 var marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
@@ -119,6 +127,6 @@
                     });
                 })
             }
-    </script>
-</section>
+        </script>
+    </section>
 }

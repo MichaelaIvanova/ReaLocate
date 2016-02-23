@@ -25,11 +25,11 @@ textarea {
 }
 
 #map_canvas img {
-    max-width: 450px;
-    float: right;
+    max-width: 881px;
+    //float: right;
 }
 
-#sidebar-main {
+#sidebar {
     float: right;
     margin: 10px;
     padding: 10px;
@@ -6785,6 +6785,7 @@ h4.agency-row-subtitle, h4.agency-row-subtitle a {
     right: 0px;
     top: -471px;
     z-index: 9999;
+    max-width:200px;
 }
 
     .map-navigation label {

@@ -54,7 +54,7 @@
                 TotalPages = totalPages,
                 CurrentPage = page,
                 UserId = this.User.Identity.GetUserId()
-        };
+            };
             return this.View(indexView);
         }
 
