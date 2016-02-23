@@ -61,7 +61,22 @@
         [HttpGet]
         public ActionResult Index()
         {
-            var latest20 =
+            var city = this.HttpContext.Request.QueryString["City"];
+            var country = this.HttpContext.Request.QueryString["Country"];
+
+            IEnumerable<DetailsRealEstateViewModel> result;
+
+            if (city != null || country != null)
+            {
+                result = this.realEstateService.GetAll()
+                                     .Where(r => r.City.Contains(city) && r.Country.Contains(country))
+                                     .OrderByDescending(r => r.CreatedOn)
+                                     .To<DetailsRealEstateViewModel>()
+                                     .ToList();
+            }
+            else
+            {
+                result =
                this.Cache.Get(
                    "latest20RealEstates",
                    () => this.realEstateService.GetAll()
@@ -70,8 +85,22 @@
                                      .To<DetailsRealEstateViewModel>()
                                      .ToList(),
                    15 * 60);
+            }
 
-            return this.View(latest20);
+            return this.View(result);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(SearchedRealEstateViewModel model)
+        {
+            var result = this.realEstateService
+                .GetAll()
+                .Where(r => r.City.Contains(model.City) || r.Country.Contains(model.Country))
+                .To<DetailsRealEstateViewModel>()
+                 .ToList();
+
+            return View(result);
         }
 
         public ActionResult Chat()

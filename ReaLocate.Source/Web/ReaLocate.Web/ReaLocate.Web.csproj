@@ -245,6 +245,7 @@
     <Compile Include="ViewModels\AgencyInvoiceViewModel.cs" />
     <Compile Include="ViewModels\BrokerInputViewModel.cs" />
     <Compile Include="ViewModels\BrokerViewModel.cs" />
+    <Compile Include="ViewModels\SearchedRealEstateViewModel.cs" />
     <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
     <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
     <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
