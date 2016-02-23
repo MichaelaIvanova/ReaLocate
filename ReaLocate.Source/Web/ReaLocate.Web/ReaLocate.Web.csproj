@@ -241,29 +241,29 @@
     <Compile Include="Controllers\InviteBrokersController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Helpers\IRealEstateCreateUtil.cs" />
-    <Compile Include="ViewModels\AgencyAsInvoiceRecepientViewModel.cs" />
-    <Compile Include="ViewModels\AgencyInvoiceViewModel.cs" />
-    <Compile Include="ViewModels\BrokerInputViewModel.cs" />
-    <Compile Include="ViewModels\BrokerViewModel.cs" />
-    <Compile Include="ViewModels\SearchedRealEstateViewModel.cs" />
-    <Compile Include="ViewModels\UserAsInvoiceRecepientViewModel.cs" />
-    <Compile Include="ViewModels\UserInvoiceViewModel.cs" />
-    <Compile Include="ViewModels\InvoiceByUserViewModel.cs" />
+    <Compile Include="ViewModels\Agency\AgencyAsInvoiceRecepientViewModel.cs" />
+    <Compile Include="ViewModels\Invoice\AgencyInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\Broker\BrokerInputViewModel.cs" />
+    <Compile Include="ViewModels\Broker\BrokerViewModel.cs" />
+    <Compile Include="ViewModels\RealEstate\SearchedRealEstateViewModel.cs" />
+    <Compile Include="ViewModels\Invoice\UserAsInvoiceRecepientViewModel.cs" />
+    <Compile Include="ViewModels\Invoice\UserInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\Invoice\InvoiceByUserViewModel.cs" />
     <Compile Include="Helpers\RealEstateCreateUtil.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="ViewModels\CoordinateViewModel.cs" />
-    <Compile Include="ViewModels\CreateAgencyViewModel.cs" />
+    <Compile Include="ViewModels\Home\CoordinateViewModel.cs" />
+    <Compile Include="ViewModels\Agency\CreateAgencyViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Controllers\RealEstatesController.cs" />
-    <Compile Include="ViewModels\DetailsAgencyViewModel.cs" />
-    <Compile Include="ViewModels\IndexMapAndGridViewModel.cs" />
-    <Compile Include="ViewModels\PaymentDetailsViewModel.cs" />
-    <Compile Include="ViewModels\VisitorDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Agency\DetailsAgencyViewModel.cs" />
+    <Compile Include="ViewModels\Home\IndexMapAndGridViewModel.cs" />
+    <Compile Include="ViewModels\Invoice\PaymentDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Visitor\VisitorDetailsViewModel.cs" />
     <Compile Include="Controllers\VisitorsController.cs" />
     <Compile Include="Filters\MaxFileSizeAttribute.cs" />
-    <Compile Include="ViewModels\CreateRealEstateViewModel.cs" />
+    <Compile Include="ViewModels\RealEstate\CreateRealEstateViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,7 +276,7 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="ViewModels\DetailsRealEstateViewModel.cs" />
+    <Compile Include="ViewModels\RealEstate\DetailsRealEstateViewModel.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
@@ -288,7 +288,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
-    <Compile Include="ViewModels\VisitorViewModel.cs" />
+    <Compile Include="ViewModels\Visitor\VisitorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

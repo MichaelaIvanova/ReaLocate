@@ -13,6 +13,7 @@ namespace ReaLocate.Web.Controllers
     public class InvoiceByUserViewModel:IMapTo<Invoice>
     {
         public string RealEstateId { get; set; }
+
         public string About { get; set; }
 
         public string Description { get; set; }
