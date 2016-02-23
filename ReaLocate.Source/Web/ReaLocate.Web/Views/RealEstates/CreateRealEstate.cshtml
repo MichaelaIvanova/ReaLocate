@@ -1,9 +1,7 @@
 ﻿@model ReaLocate.Web.ViewModels.CreateRealEstateViewModel
-
 @{
     ViewBag.Title = "CreateRealEstate";
 }
-
 <h2>Create Real Estate</h2>
 <div id="type-selector" class="controls" style="display:none">
     <input type="radio" name="type" id="changetype-address" checked="checked">
@@ -19,71 +17,71 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <div class="form-group" id="address-holder">
-                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "pac-input" } })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                <div style="float:left">
+                    <div class="form-group" id="address-holder">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "pac-input" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OfferType, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.OfferType, new SelectList(
-                  new List<Object>{
+                <div style="float:left">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OfferType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5 pull-right">
+                            @Html.DropDownListFor(model => model.OfferType, new SelectList(
+                       new List<Object>{
                        new { value = 0 , text = "Regular"  },
                        new { value = 1 , text = "Gold" },
                     }, "value", "text", 0))
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.RealEstateType, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.RealEstateType, new SelectList(
-                  new List<Object>{
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RealEstateType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5 pull-right">
+                            @Html.DropDownListFor(model => model.RealEstateType, new SelectList(
+                       new List<Object>{
                        new { value = 0 , text = "For Rent"  },
                        new { value = 1 , text = "For Sale" },
                        new { value = 2 , text = "For Sale and For Sale" },
-                    }, "value", "text", 0))
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                @for (int i = 1; i <= this.ViewBag.MaxPhotos; i++)
-                {
-                    <div class="form-group">
-                        @Html.Label("Photo", new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <input type="file" id=@("Photo"+ i) name ="files"  class="very-special-file"/>
+                    }, "value", "text", 0), new { @class= "dropdown - menu" })
                         </div>
                     </div>
-                }
-
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div style="float:right">
+                    @for (int i = 1; i <= this.ViewBag.MaxPhotos; i++)
+                {
+                        <div class="form-group">
+                            @Html.Label("Photo", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" id=@("Photo"+ i) name="files" class="very-special-file" />
+                            </div>
+                        </div>
+                    }
+                </div>
                 <br />
-
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -93,7 +91,6 @@
         </div>
     }
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
@@ -204,7 +201,7 @@
                 console.log("here");
                 var address = $("#pac-input").val();
                 geocoder.geocode({ 'address': address }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK & address.length>5) {
+                    if (status == google.maps.GeocoderStatus.OK & address.length > 5) {
                         console.log('hey is valid');
                         //$("#LatitudeLongitude").val(results[0].geometry.location);
                         $('form').submit();
@@ -217,16 +214,15 @@
             }
         });
     </script>
-
-<script type="text/jscript">
+    <script type="text/jscript">
         //get file size
         function GetFileSize(fileid) {
             try {
                 var fileSize = 0;
-                    fileSize = $(fileid)[0].files[0].size //size in kb
-                    fileSize = fileSize / 1048576; //size in mb
+                fileSize = $(fileid)[0].files[0].size //size in kb
+                fileSize = fileSize / 1048576; //size in mb
 
-                    console.log(fileSize);
+                console.log(fileSize);
                 return fileSize;
             }
             catch (e) {
@@ -251,40 +247,40 @@
 
 
             $('.very-special-file').change(function () {
-                    var idSelector = '#'+event.srcElement.id;
-                    var file = getNameFromPath($(idSelector).val());
-                    if (file != null) {
-                        var extension = file.substr((file.lastIndexOf('.') + 1));
-                        console.log(extension);
-                        switch (extension) {
-                            case 'jpg':
-                                flag = true;
-                                break;
-                            default:
-                                flag = false;
-                        }
+                var idSelector = '#' + event.srcElement.id;
+                var file = getNameFromPath($(idSelector).val());
+                if (file != null) {
+                    var extension = file.substr((file.lastIndexOf('.') + 1));
+                    console.log(extension);
+                    switch (extension) {
+                        case 'jpg':
+                            flag = true;
+                            break;
+                        default:
+                            flag = false;
                     }
-                    if (flag == false) {
-                        alert('hey stupid only jpg allowed');
-                        var idSelector = '#'+event.srcElement.id;
-                        $(idSelector).val('');
-                        console.log(currentFileInput);
-                        console.log('mn sum tupa');
+                }
+                if (flag == false) {
+                    alert('hey stupid only jpg allowed');
+                    var idSelector = '#' + event.srcElement.id;
+                    $(idSelector).val('');
+                    console.log(currentFileInput);
+                    console.log('mn sum tupa');
 
-                        return false;
-                    }
-                    else {
-                        console.log(event.srcElement.id);
-                        var idSelector = '#'+event.srcElement.id;
-                        var size = GetFileSize(idSelector);
+                    return false;
+                }
+                else {
+                    console.log(event.srcElement.id);
+                    var idSelector = '#' + event.srcElement.id;
+                    var size = GetFileSize(idSelector);
 
-                        if (size > 1) {
-                            alert('hey stupid no more than 1 mb');
-                            $($(idSelector)).val('');
-                        }
+                    if (size > 1) {
+                        alert('hey stupid no more than 1 mb');
+                        $($(idSelector)).val('');
                     }
-                });
+                }
+            });
 
         });
-</script>
+    </script>
 }

@@ -4,10 +4,12 @@
     ViewBag.Title = "RealEstateDetails";
 }
 
-<h2>RealEstateDetails</h2>
+<br />
+
+<h2>Real Estate Details</h2>
 
 <div>
-    <h4>DetailsRealEstateViewModel</h4>
+    <h4>Details RealEstate ViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -81,6 +83,12 @@
 @section Map{
 
     <div id="map_canvas" style="height: 300px; width: 300px; border-radius: 200px;"></div>
+    @if((int)Model.OfferType == 1)
+    {
+        <div style="float:left">
+            <img width="150" src="http://www.sightcall.com/wp-content/uploads/2015/05/special_offer_stamp.png"/>
+        </div>
+    }
 }
 
 @section SideBar{
