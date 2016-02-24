@@ -1,7 +1,10 @@
 ReaLocate Documentation
 ===================
 
-view documentation online on: http://michaelaivanova.github.io/ReaLocate/
+preview GitHub page on: http://michaelaivanova.github.io/ReaLocate/
+
+preview in Azure on:
+http://realocatechezza.azurewebsites.net/
 
 > User-friendly real estate application for managing property: 
 **sell and rent** with  **GoogleMaps Api**
