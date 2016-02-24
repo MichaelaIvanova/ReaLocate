@@ -403,6 +403,7 @@
     <Content Include="Areas\AgencyAdministration\Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Areas\AgencyAdministration\Views\RealEstatesOffers\RealEstatesOffers.cshtml" />
     <Content Include="Areas\AgencyAdministration\Views\MyAgencyInvoices\MyAgencyInvoices.cshtml" />
+    <None Include="Properties\PublishProfiles\ReaLocateChezza - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
