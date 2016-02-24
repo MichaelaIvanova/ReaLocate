@@ -1,7 +1,7 @@
 ReaLocate Documentation
 ===================
 
-preview on GitHub pages on: http://michaelaivanova.github.io/ReaLocate/
+preview GitHub page and download source: http://michaelaivanova.github.io/ReaLocate/
 
 preview in Azure: http://realocatechezza.azurewebsites.net/
 
