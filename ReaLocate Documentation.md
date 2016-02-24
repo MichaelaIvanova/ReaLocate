@@ -1,6 +1,7 @@
 ReaLocate Documentation
 ===================
 
+view documentation online on: http://michaelaivanova.github.io/ReaLocate/
 
 > User-friendly real estate application for managing property: 
 **sell and rent** with  **GoogleMaps Api**
