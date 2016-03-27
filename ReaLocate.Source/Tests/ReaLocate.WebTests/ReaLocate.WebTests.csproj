@@ -64,27 +64,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\ReaLocate.Data.Common\ReaLocate.Data.Common.csproj">
+    <ProjectReference Include="..\..\Data\ReaLocate.Data.Common\ReaLocate.Data.Common.csproj">
       <Project>{EDFE3C57-EF5B-4636-9ECC-D0BACA6B6379}</Project>
       <Name>ReaLocate.Data.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\ReaLocate.Data.Models\ReaLocate.Data.Models.csproj">
+    <ProjectReference Include="..\..\Data\ReaLocate.Data.Models\ReaLocate.Data.Models.csproj">
       <Project>{048df115-fad9-4bd4-9ba0-d99dfd32a2b2}</Project>
       <Name>ReaLocate.Data.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\ReaLocate.Services.Data\ReaLocate.Services.Data.csproj">
+    <ProjectReference Include="..\..\Services\ReaLocate.Services.Data\ReaLocate.Services.Data.csproj">
       <Project>{90fe4c4d-122a-406d-8a40-79c561fb8184}</Project>
       <Name>ReaLocate.Services.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\ReaLocate.Services.Web\ReaLocate.Services.Web.csproj">
+    <ProjectReference Include="..\..\Services\ReaLocate.Services.Web\ReaLocate.Services.Web.csproj">
       <Project>{deab17a2-58c1-448c-8a66-d49c3af7fc6c}</Project>
       <Name>ReaLocate.Services.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Web\ReaLocate.Web.Infrastructure\ReaLocate.Web.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Web\ReaLocate.Web.Infrastructure\ReaLocate.Web.Infrastructure.csproj">
       <Project>{6813dc53-5eee-4507-8604-5301ee51a0d3}</Project>
       <Name>ReaLocate.Web.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Web\ReaLocate.Web\ReaLocate.Web.csproj">
+    <ProjectReference Include="..\..\Web\ReaLocate.Web\ReaLocate.Web.csproj">
       <Project>{67CC40FF-4933-4F83-810E-357E6BC8B973}</Project>
       <Name>ReaLocate.Web</Name>
     </ProjectReference>
